@@ -20,7 +20,7 @@ class CurrencyAPI extends RESTDataSource {
                   timeZone = response['7. Time Zone'] || '',
                   bidPrice = response['8. Bid Price'] || '',
                   askPrice = response['9. Ask Price'] || ''
-            return data && {
+            return data && response && {
                 fromCurrency,
                 fromCurrencyName,
                 toCurrency,

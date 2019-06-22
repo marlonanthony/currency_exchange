@@ -17,19 +17,10 @@ const resolvers = {
     },
 
     Mutation: {
-        register: async (_, { email, password, name }) => {
+        register: async (_, { email, password, name }, { dataSources }) => {
             try {
-                if (!isEmail.validate(email)) { throw new Error('Invalide Email') }
-                const existingUser = await User.findOne({ email })
-                if(existingUser) { throw new Error('User already exists') }
-                const hashedPassword = await bcrypt.hash(password, 12)
-                const user = await new User({
-                    name,
-                    email,
-                    password: hashedPassword
-                })
-                await user.save()
-                return true 
+                const newUser = await dataSources.userAPI.createNewUser({ email, password, name })
+                if(newUser) return newUser
             } catch (error) {
                 console.log(error) 
                 throw error 
