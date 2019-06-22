@@ -5,7 +5,7 @@ const resolvers = {
     Query: {
         me: async (_, __, { req }) => {
             if(!req.session.userId) return null 
-            const user = await User.findById(req.session.userId) 
+            const user = await User.findById(req.session.userId).populate('pairs') 
             return user 
         },
         currencyPairInfo: async (_, {fc, tc}, { dataSources }) => {
