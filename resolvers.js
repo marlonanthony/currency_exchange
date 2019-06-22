@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs')
-const User = require('./models/User')
 const isEmail = require('isemail')
+const User = require('./models/User')
+const Pair = require('./models/Pair') 
 
 const resolvers = {
     Query: {
@@ -8,6 +9,10 @@ const resolvers = {
             if(!req.session.userId) return null 
             const user = await User.findById(req.session.userId) 
             return user 
+        },
+        currencyPairInfo: async (_, {fc, tc}, { dataSources }) => {
+            const currencyPairs = await dataSources.currencyAPI.getCurrencyPair(fc, tc)
+            return currencyPairs
         }
     },
 

@@ -5,11 +5,15 @@ const resolvers = require('./resolvers')
 const mongoose = require('mongoose') 
 const session = require('express-session')
 
-const { secret } = require('./config/keys')
+const CurrencyAPI = require('./datasources/currencies')
+const { secret }  = require('./config/keys')
 
 const server = new ApolloServer({
     typeDefs,
     resolvers,
+    dataSources: () => ({
+        currencyAPI: new CurrencyAPI()
+    }),
     context: ({ req }) => ({ req })
 })
 
