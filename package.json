@@ -1,0 +1,23 @@
+{
+  "name": "currency_exchange",
+  "version": "1.0.0",
+  "description": "Currency Exchange",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "Marlon Decosta",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server-express": "^2.6.4",
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "graphql": "^14.3.1",
+    "mongoose": "^5.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
