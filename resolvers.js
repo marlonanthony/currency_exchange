@@ -1,7 +1,5 @@
-const bcrypt = require('bcryptjs')
-const isEmail = require('isemail')
 const User = require('./models/User')
-const Pair = require('./models/Pair') 
+// const Pair = require('./models/Pair') 
 
 const resolvers = {
     Query: {
@@ -26,15 +24,10 @@ const resolvers = {
                 throw error 
             }
         },
-        login: async (_, { email, password }, { req }) => {
+        login: async (_, { email, password }, { req, dataSources }) => {
             try {
-                if (!isEmail.validate(email)) { throw new Error('Invalide Email') }
-                const user = await User.findOne({ email }) 
-                if(!user) { throw new Error('Email or password is incorrect!') }
-                const isEqual = await bcrypt.compare(password, user.password)
-                if(!isEqual) { throw new Error('Email or password is incorrect!') }
-                req.session.userId = user.id 
-                return user 
+                const user = await dataSources.userAPI.loginUser({ email, password, req })
+                if(user) return user 
             } catch (error) { 
                 console.log(error) 
                 throw error 

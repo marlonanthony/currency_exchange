@@ -6,13 +6,15 @@ const mongoose = require('mongoose')
 const session = require('express-session')
 
 const CurrencyAPI = require('./datasources/currencies')
-const { secret }  = require('./config/keys')
+const UserAPI = require('./datasources/user')
+const { secret, mongoUsername, mongoPassword }  = require('./config/keys')
 
 const server = new ApolloServer({
     typeDefs,
     resolvers,
     dataSources: () => ({
-        currencyAPI: new CurrencyAPI()
+        currencyAPI: new CurrencyAPI(),
+        userAPI: new UserAPI() 
     }),
     context: ({ req }) => ({ req })
 })
@@ -32,7 +34,7 @@ server.applyMiddleware({
 })
 
 mongoose
-.connect(`mongodb+srv://marlon:marlon123456@cluster0-nqgpm.mongodb.net/graphqlauth?retryWrites=true&w=majority`)
+.connect(`mongodb+srv://${mongoUsername}:${mongoPassword}@cluster0-nqgpm.mongodb.net/graphqlauth?retryWrites=true&w=majority`)
 .then(() => app.listen({ port: 4000 }, () => {
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 })).catch(err => console.log(err))
