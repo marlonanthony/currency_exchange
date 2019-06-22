@@ -19,7 +19,7 @@ const User = new Schema({
         default: 1000000,
         required: true
     },
-    currencyPairs: [
+    pairs: [
         {
             type: Schema.Types.ObjectId,
             ref: 'Pair'

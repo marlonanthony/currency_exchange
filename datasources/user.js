@@ -2,9 +2,8 @@ const { DataSource } = require('apollo-datasource')
 const isEmail = require('isemail')
 const bcrypt = require('bcryptjs')
 
-// const keys = require('../config/keys')
 const User = require('../models/User') 
-// const Pair = require('../models/Pair') 
+const Pair = require('../models/Pair') 
 
 class UserAPI extends DataSource {
   constructor() {
@@ -38,6 +37,34 @@ class UserAPI extends DataSource {
       if(!isEqual) { throw new Error('Email or password is incorrect!') }
       req.session.userId = user.id 
       return user 
+    } catch (error) {
+      console.log(error) 
+      throw error 
+    }
+  }
+
+  async newPosition({ pair, lotSize, openedAt, req }) {
+    try {
+      console.log(req.session.userId)
+      const user = await User.findById(req.session.userId)
+      if(!user) throw new Error(`User doesn't exist.`)
+      if(user.bankroll < lotSize) throw new Error(`You don't have enough for this transaction.`)
+      
+      const newPair = new Pair({
+        pair,
+        lotSize,
+        openedAt,
+        open: true,
+        user: req.session.userId
+      })
+      const pairResult = await newPair.save()
+      console.log(pairResult)
+      user.pairs.unshift(pairResult)
+      user.bankroll -= lotSize
+      await user.save()
+      const message = `Congrats ${user.name}! You've .....${pairResult.pair} at ${pairResult.openedAt}`
+      const success = true 
+      return { success, message, pair: pairResult }
     } catch (error) {
       console.log(error) 
       throw error 
