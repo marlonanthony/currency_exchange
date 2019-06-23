@@ -15,17 +15,19 @@ class UserAPI extends DataSource {
   }
 
   async createNewUser({ email, password, name }) {
-    if(!isEmail.validate(email)) { throw new Error('Invalide Email') }
-    const existingUser = await User.findOne({ email })
-    if(existingUser) { throw new Error('User already exists') }
-    const hashedPassword = await bcrypt.hash(password, 12)
-    const user = await new User({
-      name,
-      email,
-      password: hashedPassword
-    })
-    await user.save()
-    return true 
+    try {
+      if(!isEmail.validate(email)) { throw new Error('Invalide Email') }
+      const existingUser = await User.findOne({ email })
+      if(existingUser) { throw new Error('User already exists') }
+      const hashedPassword = await bcrypt.hash(password, 12)
+      const user = await new User({
+        name,
+        email,
+        password: hashedPassword
+      })
+      await user.save()
+      return true 
+    } catch (error) { throw error }
   }
 
   async loginUser({ email, password, req }) {
@@ -37,10 +39,7 @@ class UserAPI extends DataSource {
       if(!isEqual) { throw new Error('Email or password is incorrect!') }
       req.session.userId = user.id 
       return user 
-    } catch (error) {
-      console.log(error) 
-      throw error 
-    }
+    } catch (error) { throw error }
   }
 
   async newPosition({ pair, lotSize, openedAt, position, req }) {
@@ -61,13 +60,10 @@ class UserAPI extends DataSource {
       user.pairs.unshift(pairResult)
       user.bankroll -= lotSize
       await user.save()
-      const message = `Congrats ${user.name}! You've opened a ${position} position on ${pair} at ${openedAt}`
+      const message = `Congrats ${user.name}! You've opened a ${position} position of ${pair} at ${openedAt}`
       const success = true
       return { success, message, pair: pairResult }
-    } catch (error) {
-      console.log(error)
-      throw error
-    }
+    } catch (error) { throw error }
   }
 
   async exitPosition({ id, closedAt, req }) {
@@ -89,13 +85,10 @@ class UserAPI extends DataSource {
       await user.save() 
 
       const success = true 
-      const message = `${user.name} you've closed a ${savedPair.position} position on ${savedPair.pair} at ${closedAt}`
+      const message = `${user.name} you've closed your ${savedPair.position} position of ${savedPair.pair} at ${closedAt}`
       return { success, message, pair: savedPair }
     }
-    catch (error) {
-      console.log(error) 
-      throw error 
-    }
+    catch (error) { throw error }
   }
 }
 
