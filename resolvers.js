@@ -41,6 +41,16 @@ const resolvers = {
                 console.log(error) 
                 throw error 
             }
+        },
+        closePosition: async(_, { id, closedAt }, { dataSources, req }) => {
+            try {
+                const close = await dataSources.userAPI.exitPosition({ id, closedAt, req })
+                return close 
+            }
+            catch (error) {
+                console.log(error) 
+                throw error 
+            }
         }
     }
 }

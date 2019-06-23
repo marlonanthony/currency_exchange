@@ -45,7 +45,6 @@ class UserAPI extends DataSource {
 
   async newPosition({ pair, lotSize, openedAt, position, req }) {
     try {
-      console.log(req.session.userId)
       const user = await User.findById(req.session.userId)
       if(!user) throw new Error(`User doesn't exist.`)
       if(user.bankroll < lotSize) throw new Error(`You don't have enough for this transaction.`)
@@ -54,19 +53,46 @@ class UserAPI extends DataSource {
         pair,
         lotSize,
         openedAt,
-        open: true,
         position,
+        open: true,
         user: req.session.userId
       })
       const pairResult = await newPair.save()
-      console.log(pairResult)
       user.pairs.unshift(pairResult)
       user.bankroll -= lotSize
       await user.save()
-      const message = `Congrats ${user.name}! You've .....${pairResult.pair} at ${pairResult.openedAt}`
-      const success = true 
+      const message = `Congrats ${user.name}! You've opened a ${position} position on ${pair} at ${openedAt}`
+      const success = true
       return { success, message, pair: pairResult }
     } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async exitPosition({ id, closedAt, req }) {
+    try {
+      const pair = await Pair.findById(id) 
+      if(!pair) throw new Error('Pair not found')
+      if(!pair.open) throw new Error('Transaction already complete!')
+      let pipDifFloat
+      pair.position === 'long' 
+        ? pipDifFloat = (closedAt - pair.openedAt).toFixed(4) 
+        : pipDifFloat = (pair.openedAt - closedAt).toFixed(4)   
+      pair.closedAt = closedAt
+      pair.pipDif = pipDifFloat
+      pair.profitLoss = pipDifFloat * pair.lotSize
+      pair.open = false 
+      const savedPair = await pair.save()
+      const user = await User.findById(req.session.userId) 
+      user.bankroll += (pair.lotSize + savedPair.profitLoss) 
+      await user.save() 
+
+      const success = true 
+      const message = `${user.name} you've closed a ${savedPair.position} position on ${savedPair.pair} at ${closedAt}`
+      return { success, message, pair: savedPair }
+    }
+    catch (error) {
       console.log(error) 
       throw error 
     }
