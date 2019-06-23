@@ -14,6 +14,10 @@ const Pair = new Schema({
         type: Number,
         required: true 
     },
+    position: {
+        type: String,
+        required: true 
+    },
     openedAt: {
         type: Number,
         required: true 

@@ -43,7 +43,7 @@ class UserAPI extends DataSource {
     }
   }
 
-  async newPosition({ pair, lotSize, openedAt, req }) {
+  async newPosition({ pair, lotSize, openedAt, position, req }) {
     try {
       console.log(req.session.userId)
       const user = await User.findById(req.session.userId)
@@ -55,6 +55,7 @@ class UserAPI extends DataSource {
         lotSize,
         openedAt,
         open: true,
+        position,
         user: req.session.userId
       })
       const pairResult = await newPair.save()

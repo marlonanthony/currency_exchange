@@ -33,9 +33,9 @@ const resolvers = {
                 throw error 
             }
         },
-        openPosition: async (_, { pair, lotSize, openedAt }, { dataSources, req }) => {
+        openPosition: async (_, { pair, lotSize, openedAt, position }, { dataSources, req }) => {
             try {
-                const open = await dataSources.userAPI.newPosition({ pair, lotSize, openedAt, req })
+                const open = await dataSources.userAPI.newPosition({ pair, lotSize, openedAt, position, req })
                 return open 
             } catch (error) {
                 console.log(error) 

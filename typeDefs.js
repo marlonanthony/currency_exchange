@@ -16,6 +16,7 @@ module.exports.typeDefs = gql`
         user: ID!
         pair: String!
         lotSize: Int!
+        position: String!
         openedAt: Float!
         closedAt: Float
         pipDif: Float
@@ -51,6 +52,6 @@ module.exports.typeDefs = gql`
     type Mutation {
         register(email: String!, password: String!, name: String!): Boolean!
         login(email: String!, password: String!): User
-        openPosition(pair: String!, lotSize: Int, openedAt: Float!): PairUpdateResponse!
+        openPosition(pair: String!, lotSize: Int, openedAt: Float!, position: String!): PairUpdateResponse!
     }
 `
