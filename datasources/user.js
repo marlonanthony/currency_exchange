@@ -90,6 +90,25 @@ class UserAPI extends DataSource {
     }
     catch (error) { throw error }
   }
+
+  async getPair({ id, req }) {
+    const user = await User.findById(req.session.userId)
+    const pair = await Pair.findById(id)
+    if(!pair || pair.user.toString() !== user.id.toString()) { throw new Error('Invalid credentials!') }
+    else { return pair }
+  }
+
+  async findPairs({ req }) {
+    const pairs = await Pair.find({ user: req.session.userId })
+    if(!pairs.length) throw new Error('Nothing to show!')
+    return [...pairs] 
+  }
+
+  async getMe({ req }) {
+    if(!req.session.userId) return null 
+    const user = await User.findById(req.session.userId).populate('pairs') 
+    return user 
+  }
 }
 
 module.exports = UserAPI

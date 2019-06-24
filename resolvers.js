@@ -1,13 +1,9 @@
-const User = require('./models/User')
-const Pair = require('./models/Pair') 
-
 const resolvers = {
     Query: {
-        me: async (_, __, { req }) => {
+        me: async (_, __, { dataSources, req }) => {
             try {
-                if(!req.session.userId) return null 
-                const user = await User.findById(req.session.userId).populate('pairs') 
-                return user 
+                const user = await dataSources.userAPI.getMe({ req })
+                return user
             } catch (error) { throw error }
         },
         currencyPairInfo: async (_, {fc, tc}, { dataSources }) => {
@@ -16,19 +12,16 @@ const resolvers = {
                 return currencyPairs
             } catch (error) { throw error }
         },
-        findPair: async (_, { id }, { req }) => {
+        findPair: async (_, { id }, { dataSources, req }) => {
             try {
-                const user = await User.findById(req.session.userId)
-                const pair = await Pair.findById(id)
-                if(!pair || pair.user.toString() !== user.id.toString()) { throw new Error('Invalid credentials!') }
-                else { return pair }
+                const foundPair = await dataSources.userAPI.getPair({ id, req })
+                return foundPair
             } catch (error) { throw error }
         },
-        getPairs: async (_, __, { req }) => {
+        getPairs: async (_, __, { dataSources, req }) => {
             try {
-                const pairs = await Pair.find({ user: req.session.userId })
-                if(!pairs.length) throw new Error('Nothing to show!')
-                return [...pairs] 
+                const foundPairs = await dataSources.userAPI.findPairs({ req })
+                return [...foundPairs]
             } catch (error) { throw error }
         }
     },
@@ -37,13 +30,13 @@ const resolvers = {
         register: async (_, { email, password, name }, { dataSources }) => {
             try {
                 const newUser = await dataSources.userAPI.createNewUser({ email, password, name })
-                if(newUser) return newUser
+                return newUser
             } catch (error) { throw error }
         },
         login: async (_, { email, password }, { req, dataSources }) => {
             try {
                 const user = await dataSources.userAPI.loginUser({ email, password, req })
-                if(user) return user 
+                return user 
             } catch (error) { throw error }
         },
         openPosition: async (_, { pair, lotSize, openedAt, position }, { dataSources, req }) => {
