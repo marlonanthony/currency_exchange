@@ -20,8 +20,15 @@ const resolvers = {
             try {
                 const user = await User.findById(req.session.userId)
                 const pair = await Pair.findById(id)
-                if(pair.user.toString() !== user.id.toString()) { throw new Error('Invalid credentials!') }
+                if(!pair || pair.user.toString() !== user.id.toString()) { throw new Error('Invalid credentials!') }
                 else { return pair }
+            } catch (error) { throw error }
+        },
+        getPairs: async (_, __, { req }) => {
+            try {
+                const pairs = await Pair.find({ user: req.session.userId })
+                if(!pairs.length) throw new Error('Nothing to show!')
+                return [...pairs] 
             } catch (error) { throw error }
         }
     },

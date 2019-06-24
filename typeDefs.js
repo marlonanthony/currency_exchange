@@ -48,6 +48,7 @@ module.exports.typeDefs = gql`
         me: User
         currencyPairInfo(fc: String, tc: String): DefaultPairDisplay!
         findPair(id: ID!): Pair!
+        getPairs: [Pair!]
     }
 
     type Mutation {
