@@ -15,12 +15,15 @@ export default function Account() {
                 }
                 if(!data) return <div style={{ marginTop: 100 }}>Data is undefined</div>
                 if(!data.me) return <div style={{ marginTop: 100 }}><Link to='/login'>Please Login</Link></div>
-                return (
-                    <div style={{ marginTop: 100 }}>
-                        <p>{ data.me.name }</p>
-                        <p>{ data.me.email }</p>
-                    </div>
-                )
+                if(data) {
+                    console.log(data)
+                    return (
+                        <div style={{ marginTop: 100 }}>
+                            <p>{ data.me.name }</p>
+                            <p>{ data.me.email }</p>
+                        </div>
+                    )
+                }
             }}
         </Query>
     )
