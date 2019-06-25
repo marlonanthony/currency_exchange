@@ -56,5 +56,6 @@ module.exports.typeDefs = gql`
         login(email: String!, password: String!): User
         openPosition(pair: String!, lotSize: Int, openedAt: Float!, position: String!): PairUpdateResponse!
         closePosition(id: ID!, closedAt: Float!): PairUpdateResponse!
+        logout: Boolean
     }
 `

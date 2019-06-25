@@ -50,6 +50,13 @@ const resolvers = {
                 const close = await dataSources.userAPI.exitPosition({ id, closedAt, req })
                 return close 
             } catch (error) { throw error }
+        },
+        logout: async (_, __, { req }) => {
+            try {
+                req.session.destroy(() => {
+                    return false 
+                })
+            } catch (error) { throw error }
         }
     }
 }

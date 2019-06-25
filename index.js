@@ -4,7 +4,7 @@ const { typeDefs } = require('./typeDefs')
 const resolvers = require('./resolvers') 
 const mongoose = require('mongoose') 
 const session = require('express-session')
-
+const User = require('./models/User')
 const CurrencyAPI = require('./datasources/currencies')
 const UserAPI = require('./datasources/user')
 const { secret, mongoUsername, mongoPassword }  = require('./config/keys')
