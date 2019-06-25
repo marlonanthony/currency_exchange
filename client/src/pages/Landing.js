@@ -4,14 +4,13 @@ import { Query, Mutation } from 'react-apollo'
 
 import { CURRENCY_PAIR_INFO } from '../graphql/queries/currencyPairInfo'
 import { OPENPOSITION } from '../graphql/mutations/openPosition'
-import { CLOSEPOSITION } from '../graphql/mutations/closePosition'
 import { meQuery } from '../graphql/queries/me'
 
 const Landing = props => {
     const [currency, setCurrency] = useState('EUR'),
           [toCurrency, setToCurrency] = useState('USD'),
-          [openedAt, setOpenedAt] = useState(0),
-          [closedAt, setClosedAt] = useState(0)
+          [openedAt, setOpenedAt] = useState(0)
+        //   [closedAt, setClosedAt] = useState(0)
     let me 
 
     return (
@@ -21,7 +20,7 @@ const Landing = props => {
                 if(error) return `Error ${error}`
                 if(data) {
                     const user = client.readQuery({ query: meQuery })
-                    if(user && user.me && user.me.id) me = user.me
+                    if(user && user.me) me = user.me
 
                     return (
                         <main style={{marginTop: 100 }}>
@@ -45,7 +44,7 @@ const Landing = props => {
                                 </select>
                                 <button onClick={() => refetch()}>Refresh</button>
                                 { setOpenedAt(+data.currencyPairInfo.askPrice) }
-                                { setClosedAt(+data.currencyPairInfo.bidPrice) }
+                                {/* { setClosedAt(+data.currencyPairInfo.bidPrice) } */}
                                 { me && (
                                     <Mutation
                                         mutation={OPENPOSITION}

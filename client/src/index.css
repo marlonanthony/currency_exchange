@@ -4,6 +4,13 @@
   --text-color: rgb(200,200,200);
 }
 
+.thingy {
+  margin-top: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 body {
   margin: 0;

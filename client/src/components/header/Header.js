@@ -28,7 +28,7 @@ function Header(props) {
                     return (
                         <ul>
                             <li><NavLink to='/account'>Account</NavLink></li>
-                            <li><NavLink to='/settings'>Settings</NavLink></li>
+                            <li><NavLink to='/chart'>Chart</NavLink></li>
                             <LogoutButton />
                         </ul>
                     )

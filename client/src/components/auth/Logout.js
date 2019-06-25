@@ -16,8 +16,7 @@ const updateCacheAfterLogout = (cache, props) => {
 const LogoutButton = props => (
     <Mutation
         mutation={LOGOUT_MUTATION}
-        update={cache => updateCacheAfterLogout(cache, props)} 
-    >
+        update={cache => updateCacheAfterLogout(cache, props)}>
         {logout => (
             <button onClick={logout}>
                 Logout
