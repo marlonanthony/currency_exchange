@@ -5,6 +5,7 @@ import Header from './components/header/Header'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import Account from './components/auth/Account'
+import Landing from './pages/Landing'
 import './App.css'
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
             <Route path='/register' component={Register} />
             <Route path='/account' component={Account} />
             <Route path='/settings' render={() => <div style={{marginTop: 100 }}>Bruh</div>} />
-            <Route exact path='/' render={() => <div style={{marginTop: 100}}>homepage bruh</div>} />
+            <Route exact path='/' component={Landing} />
           </>
         )} />
       </Switch>

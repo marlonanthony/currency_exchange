@@ -13,18 +13,17 @@ const updateCacheAfterLogout = (cache, props) => {
     props.history.push('/')
 }
 
-const LogoutButton = (props) => {
-    return (
+const LogoutButton = props => (
     <Mutation
         mutation={LOGOUT_MUTATION}
         update={cache => updateCacheAfterLogout(cache, props)} 
     >
-        {(logout) => (
+        {logout => (
             <button onClick={logout}>
                 Logout
             </button>
         )}
     </Mutation>
-)}
+)
 
 export default withRouter(LogoutButton)

@@ -1,24 +1,19 @@
 import React, { useState } from 'react'
 import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
 
-const registerMutation = gql`
-    mutation RegisterMutation($email: String!, $password: String!, $name: String!) {
-        register(email: $email, password: $password, name: $name)  
-    }
-`
+import { REGISTERMUTATION } from '../../graphql/mutations/register'
 
 export default function Register(props) {
     const [email, setEmail] = useState(''),
           [password, setPassword] = useState(''),
           [name, setName] = useState('') 
     return (
-        <Mutation mutation={registerMutation}>
-            {mutate => ( 
+        <Mutation mutation={REGISTERMUTATION}>
+            {register => ( 
                 <div style={{textAlign: 'center', marginTop: 50 }}>
                     <form onSubmit={ async (e) => {
                         e.preventDefault()
-                        await mutate({variables: { email, password, name }})
+                        await register({variables: { email, password, name }})
                         props.history.push('/login')
                     }} style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
                         <h1>Sign Up</h1>

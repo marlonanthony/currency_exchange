@@ -1,25 +1,15 @@
 import React, { useState } from 'react'
 import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
 
 import { meQuery } from '../../graphql/queries/me'
-
-const loginMutation = gql`
-    mutation LoginMutation($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
-            id
-            email
-            name
-        }
-    }
-`
+import { LOGINMUTATION } from '../../graphql/mutations/login'
 
 export default function Login(props) {
     const [email, setEmail] = useState(''),
           [password, setPassword] = useState('')
     return (
         <Mutation 
-            mutation={loginMutation}
+            mutation={LOGINMUTATION}
             update={(cache, { data }) => {
                 if(!data || !data.login) return 
                 cache.writeQuery({
