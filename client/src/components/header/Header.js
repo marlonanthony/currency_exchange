@@ -1,12 +1,12 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
 import { Query } from 'react-apollo'
 
 import { meQuery } from '../../graphql/queries/me'
 import LogoutButton from '../auth/Logout'
 import './Header.css'
 
-export default function Header() {
+function Header(props) {
     return (
         <div className='navigation'>
             <header><NavLink exact to='/'>Currency Exchange</NavLink></header>
@@ -15,6 +15,7 @@ export default function Header() {
                     if(loading) return <p>loading</p>
                     if(error) {
                         console.log(error) 
+                        if(error.message.includes('Network error: Failed to fetch')) props.history.push('/login')
                         return `Error ${error}`
                     }
                     if(!data) return <div style={{ marginTop: 100 }}>Data is undefined</div>
@@ -36,3 +37,5 @@ export default function Header() {
         </div>
     )
 }
+
+export default withRouter(Header) 

@@ -28,8 +28,7 @@ const Landing = props => {
                             <div>
                                 <select 
                                     value={currency}
-                                    onChange={e => setCurrency(e.target.value)}
-                                >
+                                    onChange={e => setCurrency(e.target.value)}>
                                     <option>EUR</option>
                                     <option>USD</option>
                                     <option>GBP</option>
@@ -38,8 +37,7 @@ const Landing = props => {
                                 </select>
                                 <select 
                                     value={toCurrency}
-                                    onChange={e => setToCurrency(e.target.value)}
-                                >
+                                    onChange={e => setToCurrency(e.target.value)}>
                                     <option>JPY</option>
                                     <option>CHF</option>
                                     <option>CAD</option>
@@ -51,8 +49,7 @@ const Landing = props => {
                                 { me && (
                                     <Mutation
                                         mutation={OPENPOSITION}
-                                        variables={{ pair: `${currency}/${toCurrency}`, lotSize: 100000, openedAt, position: 'long' }}
-                                        >
+                                        variables={{ pair: `${currency}/${toCurrency}`, lotSize: 100000, openedAt, position: 'long' }}>
                                         {(openPosition, { data, loading, error }) => {
                                         if(loading) return <p>Loading</p>
                                         if(error) {
@@ -71,8 +68,7 @@ const Landing = props => {
                                 { me && (
                                     <Mutation
                                         mutation={OPENPOSITION}
-                                        variables={{ pair: `${currency}/${toCurrency}`, lotSize: 100000, openedAt, position: 'short' }}
-                                        >
+                                        variables={{ pair: `${currency}/${toCurrency}`, lotSize: 100000, openedAt, position: 'short' }}>
                                         {(openPosition, { data, loading, error }) => {
                                         if(loading) return <p>Loading</p>
                                         if(error) {
