@@ -23,7 +23,7 @@ export default function Login(props) {
                         e.preventDefault()
                         client.resetStore() 
                         await login({variables: { email, password }})
-                        props.history.push('/account')
+                        props.history.push('/')
                     }} style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
                         <h1>Login</h1>
                         <input
