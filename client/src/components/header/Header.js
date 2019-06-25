@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { Query } from 'react-apollo'
 
 import { meQuery } from '../../graphql/queries/me'
+import LogoutButton from '../auth/Logout'
 import './Header.css'
 
 export default function Header() {
@@ -27,6 +28,7 @@ export default function Header() {
                         <ul>
                             <li><NavLink to='/account'>Account</NavLink></li>
                             <li><NavLink to='/settings'>Settings</NavLink></li>
+                            <LogoutButton />
                         </ul>
                     )
                 }}

@@ -27,12 +27,12 @@ export default function Login(props) {
                     data: { me: data.login }
                 })
             }}>
-            {(mutate, { client }) => ( 
+            {(login, { client }) => ( 
                 <div style={{textAlign: 'center', marginTop: 50 }}>
                     <form onSubmit={ async (e) => {
                         e.preventDefault()
                         client.resetStore() 
-                        const response = await mutate({variables: { email, password }})
+                        await login({variables: { email, password }})
                         props.history.push('/account')
                     }} style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
                         <h1>Login</h1>
