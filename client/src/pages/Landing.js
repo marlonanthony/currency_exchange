@@ -1,18 +1,25 @@
 import React, { useState } from 'react'
-import { Query } from 'react-apollo'
+import { Query, Mutation } from 'react-apollo'
+
 
 import { CURRENCY_PAIR_INFO } from '../graphql/queries/currencyPairInfo'
+import { OPENPOSITION } from '../graphql/mutations/openPosition'
+import { meQuery } from '../graphql/queries/me'
 
 const Landing = props => {
     const [currency, setCurrency] = useState('EUR'),
-          [toCurrency, setToCurrency] = useState('USD')
+          [toCurrency, setToCurrency] = useState('USD'),
+          [openedAt, setOpenedAt] = useState(0)
+    let me 
 
     return (
         <Query query={CURRENCY_PAIR_INFO} variables={{ fc: currency, tc: toCurrency }}>
-            {({ data, loading, error, refetch }) => {
+            {({ data, loading, error, refetch, client }) => {
                 if(loading) return <h1 style={{marginTop: 100}}>Loading...</h1>
                 if(error) return `Error ${error}`
                 if(data) {
+                    const user = client.readQuery({ query: meQuery })
+                    if(user && user.me && user.me.id) me = user.me
                 return (
                     <main style={{marginTop: 100}}>
                         <select 
@@ -37,6 +44,29 @@ const Landing = props => {
                             <option>USD</option>
                         </select>
                         <button onClick={() => refetch()}>Refresh</button>
+                        { setOpenedAt(+data.currencyPairInfo.askPrice) }
+                        { me && (
+                            <Mutation
+                                mutation={OPENPOSITION}
+                                variables={{ pair: `${currency}/${toCurrency}`, lotSize: 100000, openedAt, position: 'long' }}
+                                >
+                                {(openPosition, { data, loading, error }) => {
+                                if(loading) return <p>Loading</p>
+                                if(error) {
+                                    console.log(error)  
+                                    return <small style={{color: 'white'}}>Error: { error.message }</small>
+                                }
+                                return (openPosition && 
+                                    <>
+                                        <button onClick={openPosition}>Buy</button>
+                                        <div>
+                                            <p>{data && data.openPosition.message}</p>
+                                        </div>
+                                    </>
+                                )
+                                }}
+                            </Mutation>
+                        )}
                         {
                             data && data.currencyPairInfo && Object.keys(data.currencyPairInfo).map(val =>(
                                 <main key={Math.random()}>
