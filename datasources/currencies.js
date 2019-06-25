@@ -43,8 +43,6 @@ class CurrencyAPI extends RESTDataSource {
                   timeSeries = data && data['Time Series FX (Weekly)'],
                   timesArray = timeSeries && Object.keys(timeSeries),
                   valuesArray = timeSeries && Object.values(timeSeries).map(val => val['4. close'])
-            console.log(timeSeries)
-
             return data && timeSeries && timesArray && valuesArray && { timesArray, valuesArray }
 
         } catch (error) { throw error }
