@@ -23,6 +23,12 @@ const resolvers = {
                 const foundPairs = await dataSources.userAPI.findPairs({ req })
                 return [...foundPairs]
             } catch (error) { throw error }
+        },
+        monthlyTimeSeries: async (_, { fc, tc }, { dataSources }) => {
+            try {
+                const timeSeries = await dataSources.currencyAPI.getMonthlyTimeSeries(fc, tc)
+                return timeSeries
+            } catch (error) { throw error }
         }
     },
 

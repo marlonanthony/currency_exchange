@@ -37,11 +37,15 @@ class CurrencyAPI extends RESTDataSource {
         }
     }
 
-    async getWeeklyTimeSeries(fc='EUR', tc='USD') {
+    async getMonthlyTimeSeries(fc='EUR', tc='USD') {
         try {
             const data = await this.get(`https://www.alphavantage.co/query?function=FX_WEEKLY&from_symbol=${fc}&to_symbol=${tc}&apikey=${keys.alphaVantageAPIKey}`),
-                  response = data['Time Series FX (Weekly)']
-            console.log(data && response)
+                  timeSeries = data && data['Time Series FX (Weekly)'],
+                  timesArray = timeSeries && Object.keys(timeSeries),
+                  valuesArray = timeSeries && Object.values(timeSeries).map(val => val['4. close'])
+            console.log(timeSeries)
+
+            return data && timeSeries && timesArray && valuesArray && { timesArray, valuesArray }
 
         } catch (error) { throw error }
     }

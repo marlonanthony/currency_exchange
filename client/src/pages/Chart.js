@@ -6,16 +6,18 @@ export default class Chart extends Component {
     }
     componentDidMount() {
         fetch(`https://www.alphavantage.co/query?function=FX_MONTHLY&from_symbol=EUR&to_symbol=USD&apikey=demo`)
-        .then(res => res.json()) 
-        .then(res => {
-            this.setState({ data: res })
-            console.log(res) 
-        }).catch(err => console.log(err))
+        .then(data => data.json()) 
+        .then(data => this.setState({ data }))
+        .catch(err => console.log(err))
     }
     render() {
         const timeSeries = this.state.data && this.state.data['Time Series FX (Monthly)']
+        const keys = timeSeries && Object.keys(timeSeries)
+        const values = timeSeries && Object.values(timeSeries).map(val => val['4. close'])
+        console.log(keys)
+        console.log(values) 
         return (
-            <div className='thingy'>
+            <div className='chart'>
                 <div>
                     {timeSeries && Object.keys(timeSeries).map((val, i) => (
                         <div key={i}>{val +':'}</div>

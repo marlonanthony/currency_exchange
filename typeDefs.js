@@ -44,11 +44,17 @@ module.exports.typeDefs = gql`
         pair: Pair!
     }
 
+    type TimeSeries {
+        timesArray: [String]!
+        valuesArray: [String]!
+    }
+
     type Query {
         me: User
         currencyPairInfo(fc: String, tc: String): DefaultPairDisplay!
         findPair(id: ID!): Pair!
         getPairs: [Pair!]
+        monthlyTimeSeries(fc: String, tc: String): TimeSeries!
     }
 
     type Mutation {

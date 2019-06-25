@@ -23,6 +23,10 @@
     list-style: none;
 }
 
+.navigation button {
+    margin-right: 1.5rem;
+}
+
 .navigation li {
     margin: 0 1rem;
     color: var(--text-color);
