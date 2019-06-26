@@ -7,6 +7,7 @@ import Register from './components/auth/Register'
 import Account from './components/auth/Account'
 import Landing from './pages/Landing'
 import Chart from './pages/Chart'
+import Pair from './pages/Pair'
 import './App.css'
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             <Route path='/register' component={Register} />
             <Route path='/account' component={Account} />
             <Route path='/chart' component={Chart} />
+            <Route path='/pair' component={Pair} />
             <Route exact path='/' component={Landing} />
           </>
         )} />

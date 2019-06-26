@@ -58,19 +58,23 @@ const Account = props => (
                     </div>
                     <br />
                     <h3>Currency Pairs</h3>
-                    { data.me.pairs && data.me.pairs.map(pair => (
-                        <div key={pair.id} style={{padding: 20}}>
-                            { pair.pair && <p><span>Currency Pair: </span>{pair.pair}</p> }
-                            { pair.lotSize && <p><span>Lot Size: </span>{pair.lotSize.toLocaleString() +'.00'}</p> }
-                            { pair.position && <p><span>Position: </span>{ pair.position }</p> }
-                            { pair.openedAt && <p><span>Opened At: </span>{ pair.openedAt }</p> }
-                            { pair.closedAt && <p><span>Closed At: </span>{ pair.closedAt }</p> }
-                            { pair.pipDif && <p><span>Pip Dif: </span>{ pair.pipDif }</p> }
-                            { pair.profitLoss && <p><span>Profit/Loss: </span>{ pair.profitLoss }</p> }
-                            { pair.open ? <p><span>Open: </span>true</p> : <p><span>Open: </span>false</p> }
-                            { pair.createdAt && <p><span>Created At: </span>{ pair.createdAt }</p> }
-                        </div>
-                    ))}
+                    <div style={{width: 400, margin: 'auto' }}>
+                        { data.me.pairs && data.me.pairs.map(pair => (
+                            <div key={pair.id} style={{padding: 20}}>
+                                <Link to={{ pathname: '/pair', state: { pair, me: data.me } }}>
+                                    { pair.pair && <p><span>Currency Pair: </span>{pair.pair}</p> }
+                                    { pair.lotSize && <p><span>Lot Size: </span>{pair.lotSize.toLocaleString() +'.00'}</p> }
+                                    { pair.position && <p><span>Position: </span>{ pair.position }</p> }
+                                    { pair.openedAt && <p><span>Opened At: </span>{ pair.openedAt }</p> }
+                                    { pair.closedAt && <p><span>Closed At: </span>{ pair.closedAt }</p> }
+                                    { pair.pipDif && <p><span>Pip Dif: </span>{ pair.pipDif }</p> }
+                                    { pair.profitLoss && <p><span>Profit/Loss: </span>{ pair.profitLoss }</p> }
+                                    { pair.open ? <p><span>Open: </span>true</p> : <p><span>Open: </span>false</p> }
+                                    { pair.createdAt && <p><span>Created At: </span>{ pair.createdAt }</p> }
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             )
         }}
