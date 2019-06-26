@@ -60,14 +60,13 @@ const resolvers = {
             } catch (error) { throw error }
         },
         logout: async (_, __, { req }) => {
-            try {
-                req.session.destroy(() => false)
-            } catch (error) { throw error }
+            try { req.session.destroy(() => false) } 
+            catch (error) { throw error }
         },
         addFunds: async (_, { amount }, { req }) => {
             try {
                 const user = await User.findById(req.session.userId)
-                user.bankroll += amount 
+                if(user) user.bankroll += amount 
                 const savedUser = await user.save()
                 const success = true
                 const messege = `Congrats ${savedUser.name} you've added ${amount} to your bankroll!`
