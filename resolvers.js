@@ -61,9 +61,7 @@ const resolvers = {
         },
         logout: async (_, __, { req }) => {
             try {
-                req.session.destroy(() => {
-                    return false 
-                })
+                req.session.destroy(() => false)
             } catch (error) { throw error }
         },
         addFunds: async (_, { amount }, { req }) => {
