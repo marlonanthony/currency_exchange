@@ -9,8 +9,8 @@ import { meQuery } from '../graphql/queries/me'
 const Landing = props => {
     const [currency, setCurrency] = useState('EUR'),
           [toCurrency, setToCurrency] = useState('USD'),
-          [openedAt, setOpenedAt] = useState(0)
-        //   [closedAt, setClosedAt] = useState(0)
+          [askPrice, setAskPrice] = useState(0),
+          [bidPrice, setBidPrice] = useState(0)
     let me
 
     return (
@@ -43,12 +43,12 @@ const Landing = props => {
                                     <option>USD</option>
                                 </select>
                                 <button onClick={() => refetch()}>Refresh</button>
-                                { setOpenedAt(+data.currencyPairInfo.askPrice) }
-                                {/* { setClosedAt(+data.currencyPairInfo.bidPrice) } */}
+                                { setAskPrice(+data.currencyPairInfo.askPrice) }
+                                { setBidPrice(+data.currencyPairInfo.bidPrice) }
                                 { me && (
                                     <Mutation
                                         mutation={OPENPOSITION}
-                                        variables={{ pair: `${currency}/${toCurrency}`, lotSize: 100000, openedAt, position: 'long' }}
+                                        variables={{ pair: `${currency}/${toCurrency}`, lotSize: 100000, openedAt: askPrice, position: 'long' }}
                                         update={cache => {
                                             const user = cache.readQuery({ query: meQuery })
                                             const data = user.me.bankroll -= 100000
@@ -85,7 +85,7 @@ const Landing = props => {
                                 { me && (
                                     <Mutation
                                         mutation={OPENPOSITION}
-                                        variables={{ pair: `${currency}/${toCurrency}`, lotSize: 100000, openedAt, position: 'short' }}>
+                                        variables={{ pair: `${currency}/${toCurrency}`, lotSize: 100000, openedAt: bidPrice, position: 'short' }}>
                                         {(openPosition, { data, loading, error }) => {
                                             if(loading) return <p>Loading</p>
                                             if(error) {

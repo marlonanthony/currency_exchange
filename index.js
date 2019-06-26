@@ -16,7 +16,10 @@ const server = new ApolloServer({
         currencyAPI: new CurrencyAPI(),
         userAPI: new UserAPI() 
     }),
-    context: ({ req }) => ({ req })
+    context: ({ req }) => ({ req }),
+    engine: {
+        apiKey: process.env.ENGINE_API_KEY
+    },
 })
 
 const app = express() 
@@ -25,6 +28,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
+
 server.applyMiddleware({ 
     app, 
     cors: {
