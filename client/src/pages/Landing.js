@@ -49,11 +49,7 @@ const Landing = props => {
                                     <Mutation
                                         mutation={OPENPOSITION}
                                         variables={{ pair: `${currency}/${toCurrency}`, lotSize: 100000, openedAt: askPrice, position: 'long' }}
-                                        update={cache => {
-                                            const user = cache.readQuery({ query: meQuery })
-                                            const data = user.me.bankroll -= 100000
-                                            cache.writeQuery({ query: meQuery, data })
-                                        }}
+                                        refetchQueries={[{ query: meQuery }]}
                                     >
                                         {(openPosition, { data, loading, error }) => {
                                             if(loading) return <p>Loading</p>
@@ -64,7 +60,7 @@ const Landing = props => {
                                             return ( openPosition && 
                                                 <>
                                                     <button onClick={() => {
-                                                        alert('Are you sure?')
+                                                        alert('Are you sure you want to buy?')
                                                         openPosition()
                                                     }}>Buy</button> 
                                                     {data && data.openPosition.message && ( 
@@ -85,7 +81,8 @@ const Landing = props => {
                                 { me && (
                                     <Mutation
                                         mutation={OPENPOSITION}
-                                        variables={{ pair: `${currency}/${toCurrency}`, lotSize: 100000, openedAt: bidPrice, position: 'short' }}>
+                                        variables={{ pair: `${currency}/${toCurrency}`, lotSize: 100000, openedAt: bidPrice, position: 'short' }}
+                                        refetchQueries={[{ query: meQuery }]}>
                                         {(openPosition, { data, loading, error }) => {
                                             if(loading) return <p>Loading</p>
                                             if(error) {
@@ -94,8 +91,20 @@ const Landing = props => {
                                             }
                                             return ( openPosition && 
                                                 <>
-                                                    <button onClick={openPosition}>Sell</button>
-                                                    <p>{data && data.openPosition.message}</p>
+                                                    <button onClick={() => {
+                                                        alert('Are you sure you want to sell short?')
+                                                        openPosition()
+                                                    }}>Sell</button> 
+                                                    {data && data.openPosition.message && ( 
+                                                        <div className='open_position_modal'>
+                                                            <p>{data && data.openPosition.message}!</p>
+                                                            <p>Currency Pair: {data.openPosition.pair.pair}</p>
+                                                            <p>Lot Size: {data.openPosition.pair.lotSize.toLocaleString() +'.00'}</p>
+                                                            <p>Pip Dif: {data.openPosition.pair.openedAt}</p>
+                                                            <p>Position: {data.openPosition.pair.position}</p>
+                                                            <Link to={{ pathname: '/account', state: { data } }}>{data && data.openPosition.message && 'Details'}</Link>
+                                                        </div>
+                                                    )}
                                                 </>
                                             )
                                         }}
