@@ -6,12 +6,6 @@ const resolvers = {
                 return user
             } catch (error) { throw error }
         },
-        currencyPairInfo: async (_, {fc, tc}, { dataSources }) => {
-            try {
-                const currencyPairs = await dataSources.currencyAPI.getCurrencyPair(fc, tc)
-                return currencyPairs
-            } catch (error) { throw error }
-        },
         findPair: async (_, { id }, { dataSources, req }) => {
             try {
                 const foundPair = await dataSources.userAPI.getPair({ id, req })
@@ -22,6 +16,12 @@ const resolvers = {
             try {
                 const foundPairs = await dataSources.userAPI.findPairs({ req })
                 return [...foundPairs]
+            } catch (error) { throw error }
+        },
+        currencyPairInfo: async (_, {fc, tc}, { dataSources }) => {
+            try {
+                const currencyPairs = await dataSources.currencyAPI.getCurrencyPair(fc, tc)
+                return currencyPairs
             } catch (error) { throw error }
         },
         monthlyTimeSeries: async (_, { fc, tc }, { dataSources }) => {

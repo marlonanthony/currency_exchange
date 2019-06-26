@@ -6,6 +6,20 @@ export const meQuery = gql`
             id
             email 
             name
+            bankroll
+            pairs {
+                id
+                pair
+                lotSize
+                position
+                openedAt
+                closedAt
+                pipDif
+                profitLoss
+                open
+                createdAt
+                updatedAt
+            }
         }
     }
 `

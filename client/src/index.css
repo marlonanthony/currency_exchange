@@ -2,6 +2,7 @@
   --main-color: rgb(15,15,23);
   --secondary-color: rgb(55,131,194);
   --text-color: rgb(200,200,200);
+  box-sizing: border-box;
 }
 
 .chart {
@@ -9,6 +10,29 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.open_position_modal {
+  position: absolute;
+  background: rgb(0,0,0);
+  color: var(--secondary-color);
+  width: 350px;
+  left: calc(50% - 175px);
+  top: 25%;
+  padding: 20px;
+  animation-name: modal;
+  animation-duration: .5s;
+  animation-iteration-count: 1;
+}
+
+@keyframes modal {
+  0% {
+    transform: translateY(-100vh);
+  }
+  50% { transform: translateY(20vh);}
+  100% {
+    transform: translateY(0);
+  }
 }
 
 

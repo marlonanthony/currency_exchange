@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
 import { Query, Mutation } from 'react-apollo'
-
+import { Link, Redirect } from 'react-router-dom'
 
 import { CURRENCY_PAIR_INFO } from '../graphql/queries/currencyPairInfo'
 import { OPENPOSITION } from '../graphql/mutations/openPosition'
 import { meQuery } from '../graphql/queries/me'
+import Account from '../components/auth/Account';
 
 const Landing = props => {
     const [currency, setCurrency] = useState('EUR'),
           [toCurrency, setToCurrency] = useState('USD'),
           [openedAt, setOpenedAt] = useState(0)
         //   [closedAt, setClosedAt] = useState(0)
-    let me 
+    let me
 
     return (
         <Query query={CURRENCY_PAIR_INFO} variables={{ fc: currency, tc: toCurrency }}>
@@ -21,9 +22,9 @@ const Landing = props => {
                 if(data) {
                     const user = client.readQuery({ query: meQuery })
                     if(user && user.me) me = user.me
-
                     return (
                         <main style={{marginTop: 100 }}>
+                            { user.me && user.me.bankroll && <p>Available Balance {user.me.bankroll.toLocaleString() +'.00'}</p> }
                             <div>
                                 <select 
                                     value={currency}
@@ -48,19 +49,37 @@ const Landing = props => {
                                 { me && (
                                     <Mutation
                                         mutation={OPENPOSITION}
-                                        variables={{ pair: `${currency}/${toCurrency}`, lotSize: 100000, openedAt, position: 'long' }}>
+                                        variables={{ pair: `${currency}/${toCurrency}`, lotSize: 100000, openedAt, position: 'long' }}
+                                        update={cache => {
+                                            const user = cache.readQuery({ query: meQuery })
+                                            const data = user.me.bankroll -= 100000
+                                            cache.writeQuery({ query: meQuery, data })
+                                        }}
+                                    >
                                         {(openPosition, { data, loading, error }) => {
-                                        if(loading) return <p>Loading</p>
-                                        if(error) {
-                                            console.log(error)  
-                                            return <small>Error: { error.message }</small>
-                                        }
-                                        return ( openPosition && 
-                                            <>
-                                                <button onClick={openPosition}>Buy</button>
-                                                <p>{data && data.openPosition.message}</p>
-                                            </>
-                                        )
+                                            if(loading) return <p>Loading</p>
+                                            if(error) {
+                                                console.log(error)  
+                                                return <small>Error: { error.message }</small>
+                                            }
+                                            return ( openPosition && 
+                                                <>
+                                                    <button onClick={() => {
+                                                        alert('Are you sure?')
+                                                        openPosition()
+                                                    }}>Buy</button> 
+                                                    {data && data.openPosition.message && ( 
+                                                        <div className='open_position_modal'>
+                                                            <p>{data && data.openPosition.message}!</p>
+                                                            <p>Currency Pair: {data.openPosition.pair.pair}</p>
+                                                            <p>Lot Size: {data.openPosition.pair.lotSize.toLocaleString() +'.00'}</p>
+                                                            <p>Pip Dif{data.openPosition.pair.openedAt}</p>
+                                                            <p>Position: {data.openPosition.pair.position}</p>
+                                                            <Link to={{ pathname: '/account', state: { data } }}>{data && data.openPosition.message && 'Details'}</Link>
+                                                        </div>
+                                                    )}
+                                                </>
+                                            )
                                         }}
                                     </Mutation>
                                 )}
@@ -69,17 +88,17 @@ const Landing = props => {
                                         mutation={OPENPOSITION}
                                         variables={{ pair: `${currency}/${toCurrency}`, lotSize: 100000, openedAt, position: 'short' }}>
                                         {(openPosition, { data, loading, error }) => {
-                                        if(loading) return <p>Loading</p>
-                                        if(error) {
-                                            console.log(error)  
-                                            return <small>Error: { error.message }</small>
-                                        }
-                                        return ( openPosition && 
-                                            <>
-                                                <button onClick={openPosition}>Sell</button>
-                                                <p>{data && data.openPosition.message}</p>
-                                            </>
-                                        )
+                                            if(loading) return <p>Loading</p>
+                                            if(error) {
+                                                console.log(error)  
+                                                return <small>Error: { error.message }</small>
+                                            }
+                                            return ( openPosition && 
+                                                <>
+                                                    <button onClick={openPosition}>Sell</button>
+                                                    <p>{data && data.openPosition.message}</p>
+                                                </>
+                                            )
                                         }}
                                     </Mutation>
                                 )}
