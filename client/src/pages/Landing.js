@@ -115,7 +115,7 @@ const Landing = props => {
                                 data && data.currencyPairInfo && Object.keys(data.currencyPairInfo).map((val, i) =>(
                                     <main key={i}>
                                         <div>
-                                            <p>{val && `${val}: ${data.currencyPairInfo[val]}`}</p>
+                                            <p><span>{val && `${val}: `}</span>{`${data.currencyPairInfo[val]}`}</p>
                                         </div>
                                     </main>
                                 ))

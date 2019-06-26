@@ -16,9 +16,12 @@ const Pair = (props) => {
                 {({ data, loading, error }) => {
                     if(loading) return <h1>Loading...</h1>
                     if(error) return `Error ${error}`
-                    const { bidPrice, lastRefreshed } = data.currencyPairInfo,
-                        pipDif = (bidPrice - openedAt).toFixed(4),
-                        potentialProfitLoss = pipDif * lotSize 
+                    const { bidPrice, lastRefreshed, askPrice } = data.currencyPairInfo,
+                          pipDifLong = (bidPrice - openedAt).toFixed(4),
+                          potentialProfitLossLong = pipDifLong * lotSize,
+                          pipDifShort = (openedAt - askPrice).toFixed(4),
+                          potentialProfitLossShort = pipDifShort * lotSize
+                    console.log(typeof askPrice)
                     
                     return  data && (
                         <div>
@@ -29,7 +32,7 @@ const Pair = (props) => {
                                     <Mutation 
                                         mutation={CLOSEPOSITION} 
                                         variables={{ id, closedAt: +bidPrice }}
-                                        refetchQueries={[{query: meQuery}]}
+                                        refetchQueries={[{ query: meQuery }]}
                                     >
                                         {(closePosition, { data, loading, error }) => {
                                             if(loading) return <p>Loading</p>
@@ -40,7 +43,7 @@ const Pair = (props) => {
                                             return ( closePosition && 
                                                 <>
                                                     <button onClick={() => {
-                                                        alert('Are you sure?')
+                                                        alert('Are you sure you want to sell your long position?')
                                                         closePosition()
                                                     }}>Sell</button> 
                                                     {data && data.closePosition.message && ( 
@@ -52,6 +55,35 @@ const Pair = (props) => {
                                             )
                                         }}
                                     </Mutation> 
+                                }
+                                { position === 'short' && 
+                                    <Mutation
+                                        mutation={CLOSEPOSITION}
+                                        variables={{ id, closedAt: +askPrice }}
+                                        refetchQueries={[{ query: meQuery }]}
+                                    >
+                                        {(closePosition, { data, loading, error }) => {
+                                            if(loading) return <p>Loading</p>
+                                            if(error) {
+                                                console.log(error)  
+                                                return <small>Error: { error.message }</small>
+                                            }
+                                            return ( closePosition && 
+                                                <>
+                                                    <button onClick={() => {
+                                                        alert('Are you sure you want to close your short position?')
+                                                        closePosition()
+                                                    }}>buy</button>
+                                                    { data && data.closePosition.message && (
+                                                        <div className='open_position_modal'>
+                                                            <p>{data.closePosition.message}!</p>
+                                                        </div>
+                                                    )
+                                                    }
+                                                </>
+                                            )
+                                        }}
+                                    </Mutation>
                                 }
                             </div>
                             <div>
@@ -65,10 +97,18 @@ const Pair = (props) => {
                                         <br />
                                         <p><span>Current Bid Price: </span>{bidPrice}</p>
                                         <p><span>Last Refreshed: </span>{lastRefreshed}</p>
-                                        <p><span>Current Pip Difference: </span>{pipDif}</p>
-                                        <p><span>Potential PL: </span>{potentialProfitLoss.toLocaleString()+'.00'}</p>
+                                        <p><span>Current Pip Difference: </span>{pipDifLong}</p>
+                                        <p><span>Potential PL: </span>{potentialProfitLossLong.toLocaleString()+'.00'}</p>
                                     </>
-                                ) : null }
+                                ) : (
+                                    <>
+                                        <br />
+                                        <p><span>Current Ask Price: </span>{+askPrice}</p>
+                                        <p><span>Last Refreshed: </span>{lastRefreshed}</p>
+                                        <p><span>Current Pip Difference: </span>{pipDifShort}</p>
+                                        <p><span>Potential PL: </span>{potentialProfitLossShort.toLocaleString()+'.00'}</p>
+                                    </>
+                                ) }
                             </div>
                         </div>
                     )
