@@ -1,12 +1,13 @@
 import React from 'react'
-import { Query } from 'react-apollo'
+import { Query, Mutation } from 'react-apollo'
 import { Link } from 'react-router-dom'
 
 import { meQuery } from '../../graphql/queries/me'
+import { ADDFUNDS } from '../../graphql/mutations/addFunds'
 
 const Account = props => (
     <Query query={meQuery}>
-        {({ data, loading, error }) => {
+        {({ data, loading, error, client, refetch }) => {
             if(loading) return <p>loading</p>
             if(error) {
                 console.log(error) 
@@ -18,7 +19,35 @@ const Account = props => (
             return (
                 <div>
                     <h2>{data.me.name}</h2>
-                    <p>Available Balance: { data.me.bankroll.toLocaleString() +'.00' }</p> 
+                    <div>
+                        <p>Available Balance: { data.me.bankroll.toLocaleString() +'.00' }</p> 
+                        <Mutation 
+                            mutation={ADDFUNDS} 
+                            variables={{amount: 1000000}}
+                            refetchQueries={[{query: meQuery}]}
+                        >
+                            {(addFunds, { data, loading, error }) => {
+                                if(loading) return <p>Loading</p>
+                                if(error) {
+                                    console.log(error)  
+                                    return <small>Error: { error.message }</small>
+                                }
+                                return ( addFunds && 
+                                    <>
+                                        <button onClick={() => {
+                                            alert('Are you sure?')
+                                            addFunds()
+                                        }}>Add Funds</button> 
+                                        {data && data.addFunds.message && ( 
+                                            <div className='open_position_modal'>
+                                                <p>{data && data.addFunds.messege}!</p>
+                                            </div>
+                                        )}
+                                    </>
+                                )
+                            }}
+                        </Mutation>
+                    </div>
                     <br />
                     <div>
                         {props.location.state && <h3>Recent Pair</h3>}
