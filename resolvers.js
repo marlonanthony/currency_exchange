@@ -1,3 +1,5 @@
+const User = require('./models/User') 
+
 const resolvers = {
     Query: {
         me: async (_, __, { dataSources, req }) => {
@@ -62,6 +64,16 @@ const resolvers = {
                 req.session.destroy(() => {
                     return false 
                 })
+            } catch (error) { throw error }
+        },
+        addFunds: async (_, { amount }, { req }) => {
+            try {
+                const user = await User.findById(req.session.userId)
+                user.bankroll += amount 
+                const savedUser = await user.save()
+                const success = true
+                const messege = `Congrats ${savedUser.name} you've added ${amount} to your bankroll!`
+                return { bankroll: savedUser.bankroll, success, messege } 
             } catch (error) { throw error }
         }
     }

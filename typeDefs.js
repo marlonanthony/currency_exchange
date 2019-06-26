@@ -44,10 +44,17 @@ module.exports.typeDefs = gql`
         pair: Pair!
     }
 
+    type AddFundsResponse {
+        success: Boolean!
+        messege: String!
+        bankroll: Int! 
+    }
+
     type TimeSeries {
         timesArray: [String]!
         valuesArray: [String]!
     }
+
 
     type Query {
         me: User
@@ -63,5 +70,6 @@ module.exports.typeDefs = gql`
         openPosition(pair: String!, lotSize: Int, openedAt: Float!, position: String!): PairUpdateResponse!
         closePosition(id: ID!, closedAt: Float!): PairUpdateResponse!
         logout: Boolean
+        addFunds(amount: Int!): AddFundsResponse!
     }
 `
