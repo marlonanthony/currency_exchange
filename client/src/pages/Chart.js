@@ -7,7 +7,7 @@ const Chart = () => (
 
     <Query query={MONTHLYTIMESERIES} variables={{ fc: 'EUR', tc: 'USD' }}>
             {({ data, loading, error }) => {
-                if(loading) return <h1 style={{marginTop: 100}}>Loading...</h1>
+                if(loading) return <h1>Loading...</h1>
                 if(error) return `Error ${error}`
                 return data && (
                     <div className='chart'>

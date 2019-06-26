@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { Query, Mutation } from 'react-apollo'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { CURRENCY_PAIR_INFO } from '../graphql/queries/currencyPairInfo'
 import { OPENPOSITION } from '../graphql/mutations/openPosition'
 import { meQuery } from '../graphql/queries/me'
-import Account from '../components/auth/Account';
 
 const Landing = props => {
     const [currency, setCurrency] = useState('EUR'),
@@ -17,13 +16,13 @@ const Landing = props => {
     return (
         <Query query={CURRENCY_PAIR_INFO} variables={{ fc: currency, tc: toCurrency }}>
             {({ data, loading, error, refetch, client }) => {
-                if(loading) return <h1 style={{marginTop: 100}}>Loading...</h1>
+                if(loading) return <h1>Loading...</h1>
                 if(error) return `Error ${error}`
                 if(data) {
                     const user = client.readQuery({ query: meQuery })
                     if(user && user.me) me = user.me
                     return (
-                        <main style={{marginTop: 100 }}>
+                        <main>
                             { user.me && user.me.bankroll && <p>Available Balance {user.me.bankroll.toLocaleString() +'.00'}</p> }
                             <div>
                                 <select 
@@ -104,8 +103,8 @@ const Landing = props => {
                                 )}
                             </div>
                             {
-                                data && data.currencyPairInfo && Object.keys(data.currencyPairInfo).map(val =>(
-                                    <main key={Math.random()}>
+                                data && data.currencyPairInfo && Object.keys(data.currencyPairInfo).map((val, i) =>(
+                                    <main key={i}>
                                         <div>{val && `${val}:`}</div>
                                         <div>{data.currencyPairInfo[val] && `${data.currencyPairInfo[val]}`}</div>
                                     </main>

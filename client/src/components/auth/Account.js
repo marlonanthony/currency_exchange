@@ -12,11 +12,11 @@ const Account = props => (
                 console.log(error) 
                 return `${error}`
             }
-            if(!data) return <div style={{ marginTop: 100 }}>Data is undefined</div>
-            if(!data.me) return <div style={{ marginTop: 100 }}><Link to='/login'>Please Login</Link></div>
+            if(!data) return <div>Data is undefined</div>
+            if(!data.me) return <div><Link to='/login'>Please Login</Link></div>
                 
             return (
-                <div style={{ marginTop: 100 }}>
+                <div>
                     <h2>{data.me.name}</h2>
                     <p>Available Balance: { data.me.bankroll.toLocaleString() +'.00' }</p> 
                     <br />

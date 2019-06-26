@@ -10,7 +10,7 @@ export default function Register(props) {
     return (
         <Mutation mutation={REGISTERMUTATION}>
             {register => ( 
-                <div style={{textAlign: 'center', marginTop: 50 }}>
+                <div style={{textAlign: 'center' }}>
                     <form onSubmit={ async (e) => {
                         e.preventDefault()
                         await register({variables: { email, password, name }})
