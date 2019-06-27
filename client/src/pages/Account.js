@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { Query, Mutation } from 'react-apollo'
 import { Link } from 'react-router-dom'
 
-import { meQuery } from '../../graphql/queries/me'
-import { ADDFUNDS } from '../../graphql/mutations/addFunds'
+import { meQuery } from '../graphql/queries/me'
+import { ADDFUNDS } from '../graphql/mutations/addFunds'
 
 const Account = props => {
     const [open, setOpen] = useState(true)
