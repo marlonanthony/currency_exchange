@@ -52,11 +52,13 @@ const Account = props => {
                     </div>
                     <br />
                     <div>
-                        {props.location.state && <h3>Latest Pair</h3>}
-                        {props.location.state && <p>Pair: {props.location.state.data.openPosition.pair.pair}</p>}
-                        {props.location.state && <p>Lot Size: {props.location.state.data.openPosition.pair.lotSize.toLocaleString() +'.00'}</p>}
-                        {props.location.state && <p>Pip Dif: {props.location.state.data.openPosition.pair.openedAt}</p>}
-                        {props.location.state && <p>Position: {props.location.state.data.openPosition.pair.position}</p>}
+                        {props.location.state && <h3>New Position</h3>}
+                        {props.location.state && <div style={{ padding: 20, background: 'lightblue', textAlign: 'start', width: 400, margin: '10px auto' }}>
+                            {props.location.state && <p><span>Pair: </span>{props.location.state.data.openPosition.pair.pair}</p>}
+                            {props.location.state && <p><span>Lot Size: </span>{props.location.state.data.openPosition.pair.lotSize.toLocaleString() +'.00'}</p>}
+                            {props.location.state && <p><span>Pip Dif: </span>{props.location.state.data.openPosition.pair.openedAt}</p>}
+                            {props.location.state && <p><span>Position: </span>{props.location.state.data.openPosition.pair.position}</p>}
+                        </div>}
                     </div>
                     <br />
                     <h3>Currency Pairs</h3>
@@ -71,9 +73,6 @@ const Account = props => {
                                         { pair.lotSize && <p><span>Lot Size: </span>{pair.lotSize.toLocaleString() +'.00'}</p> }
                                         { pair.position && <p><span>Position: </span>{ pair.position }</p> }
                                         { pair.openedAt && <p><span>Opened At: </span>{ pair.openedAt.toFixed(4) }</p> }
-                                        { pair.closedAt && <p><span>Closed At: </span>{ pair.closedAt.toFixed(4) }</p> }
-                                        { pair.pipDif && <p><span>Pip Dif: </span>{ pair.pipDif }</p> }
-                                        { pair.profitLoss && <p><span>Profit/Loss: </span>{ pair.profitLoss }</p> }
                                         { pair.open ? <p><span>Open: </span>true</p> : <p><span>Open: </span>false</p> }
                                         { pair.createdAt && <p><span>Created At: </span>{ pair.createdAt }</p> }
                                     </Link>
@@ -89,7 +88,7 @@ const Account = props => {
                                         { pair.openedAt && <p><span>Opened At: </span>{ pair.openedAt.toFixed(4) }</p> }
                                         { pair.closedAt && <p><span>Closed At: </span>{ pair.closedAt.toFixed(4) }</p> }
                                         { pair.pipDif && <p><span>Pip Dif: </span>{ pair.pipDif }</p> }
-                                        { pair.profitLoss && <p><span>Profit/Loss: </span>{ pair.profitLoss }</p> }
+                                        { pair.profitLoss && <p><span>Profit/Loss: </span>{ pair.profitLoss.toFixed(2) }</p> }
                                         { pair.open ? <p><span>Open: </span>true</p> : <p><span>Open: </span>false</p> }
                                         { pair.createdAt && <p><span>Created At: </span>{ pair.createdAt }</p> }
                                     </div>

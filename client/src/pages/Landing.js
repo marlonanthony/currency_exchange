@@ -10,7 +10,8 @@ const Landing = props => {
     const [currency, setCurrency] = useState('EUR'),
           [toCurrency, setToCurrency] = useState('USD'),
           [askPrice, setAskPrice] = useState(0),
-          [bidPrice, setBidPrice] = useState(0)
+          [bidPrice, setBidPrice] = useState(0),
+          [showModal, setShowModal] = useState(false) 
     let me
 
     return (
@@ -62,16 +63,18 @@ const Landing = props => {
                                                 <>
                                                     <button onClick={() => {
                                                         alert('Are you sure you want to buy?')
+                                                        setShowModal(true) 
                                                         openPosition()
                                                     }}>Buy</button> 
-                                                    {data && data.openPosition.message && ( 
+                                                    {data && data.openPosition.message && showModal && ( 
                                                         <div className='open_position_modal'>
+                                                            <button onClick={() => setShowModal(false)}>x</button>
                                                             <p>{data && data.openPosition.message}!</p>
                                                             <p>Currency Pair: {data.openPosition.pair.pair}</p>
                                                             <p>Lot Size: {data.openPosition.pair.lotSize.toLocaleString() +'.00'}</p>
-                                                            <p>Pip Dif: {data.openPosition.pair.openedAt}</p>
+                                                            <p>Opened At: {data.openPosition.pair.openedAt}</p>
                                                             <p>Position: {data.openPosition.pair.position}</p>
-                                                            <Link to={{ pathname: '/account', state: { data } }}>{data && data.openPosition.message && 'Details'}</Link>
+                                                            <Link to={{ pathname: '/account', state: { data } }}>{data && data.openPosition.message && <span>Details</span>}</Link>
                                                         </div>
                                                     )}
                                                 </>
@@ -94,17 +97,19 @@ const Landing = props => {
                                                 <>
                                                     <button onClick={() => {
                                                         alert('Are you sure you want to sell short?')
+                                                        setShowModal(true) 
                                                         openPosition()
                                                     }}>Sell</button> 
-                                                    {data && data.openPosition.message && ( 
+                                                    {data && data.openPosition.message && showModal && ( 
                                                         <div className='open_position_modal'>
+                                                            <button onClick={() => setShowModal(false)}>x</button>
                                                             <p>{data && data.openPosition.message}!</p>
                                                             <p>Currency Pair: {data.openPosition.pair.pair}</p>
                                                             <p>Lot Size: {data.openPosition.pair.lotSize.toLocaleString() +'.00'}</p>
-                                                            <p>Pip Dif: {data.openPosition.pair.openedAt}</p>
+                                                            <p>Opened At: {data.openPosition.pair.openedAt}</p>
                                                             <p>Position: {data.openPosition.pair.position}</p>
                                                             <Link to={{ pathname: '/account', state: { data } }}>
-                                                                {data && data.openPosition.message && 'Details'}
+                                                                {data && data.openPosition.message && <span>Details</span>}
                                                             </Link>
                                                         </div>
                                                     )}

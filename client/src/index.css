@@ -22,7 +22,7 @@ p:hover { color: gray; }
   position: absolute;
   background: white;
   border: 1px solid lightblue;
-  color: var(--secondary-color);
+  color: black;
   width: 350px;
   left: calc(50% - 175px);
   top: 25%;
