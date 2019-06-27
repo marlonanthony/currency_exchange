@@ -8,7 +8,9 @@ a {
   text-decoration: none; 
   color: black;
 }
-span { color: var(--secondary-color); }
+span { color: rgb(35, 100, 150); }
+button, select { cursor: pointer; }
+p:hover { color: gray; }
 
 .chart {
   display: flex;

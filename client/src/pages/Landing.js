@@ -23,6 +23,7 @@ const Landing = props => {
                     if(user && user.me) me = user.me
                     return (
                         <main>
+                            <h3>Currency Exchange</h3>
                             { user.me && user.me.bankroll && <p>Available Balance {user.me.bankroll.toLocaleString() +'.00'}</p> }
                             <div>
                                 <select 

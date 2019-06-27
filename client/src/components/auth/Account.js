@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Query, Mutation } from 'react-apollo'
 import { Link } from 'react-router-dom'
 
 import { meQuery } from '../../graphql/queries/me'
 import { ADDFUNDS } from '../../graphql/mutations/addFunds'
 
-const Account = props => (
+const Account = props => {
+    const [open, setOpen] = useState(true)
+    return (
     <Query query={meQuery}>
-        {({ data, loading, error, client, refetch }) => {
+        {({ data, loading, error }) => {
             if(loading) return <p>loading</p>
             if(error) {
                 console.log(error) 
@@ -58,20 +60,39 @@ const Account = props => (
                     </div>
                     <br />
                     <h3>Currency Pairs</h3>
+                    <button onClick={() => setOpen(true)}>open</button>
+                    <button onClick={() => setOpen(false)}>closed</button>
                     <div style={{width: 400, margin: 'auto' }}>
                         { data.me.pairs && data.me.pairs.map(pair => (
-                            <div key={pair.id} style={{padding: 20}}>
-                                <Link to={{ pathname: '/pair', state: { pair, me: data.me } }}>
-                                    { pair.pair && <p><span>Currency Pair: </span>{pair.pair}</p> }
-                                    { pair.lotSize && <p><span>Lot Size: </span>{pair.lotSize.toLocaleString() +'.00'}</p> }
-                                    { pair.position && <p><span>Position: </span>{ pair.position }</p> }
-                                    { pair.openedAt && <p><span>Opened At: </span>{ pair.openedAt }</p> }
-                                    { pair.closedAt && <p><span>Closed At: </span>{ pair.closedAt }</p> }
-                                    { pair.pipDif && <p><span>Pip Dif: </span>{ pair.pipDif }</p> }
-                                    { pair.profitLoss && <p><span>Profit/Loss: </span>{ pair.profitLoss }</p> }
-                                    { pair.open ? <p><span>Open: </span>true</p> : <p><span>Open: </span>false</p> }
-                                    { pair.createdAt && <p><span>Created At: </span>{ pair.createdAt }</p> }
-                                </Link>
+                            pair.open && open &&
+                            <div key={pair.id} style={{padding: 20, margin: 10, background: 'lightblue', textAlign: 'start'}}>
+                                    <Link to={{ pathname: '/pair', state: { pair, me: data.me } }}>
+                                        { pair.pair && <p><span>Currency Pair: </span>{pair.pair}</p> }
+                                        { pair.lotSize && <p><span>Lot Size: </span>{pair.lotSize.toLocaleString() +'.00'}</p> }
+                                        { pair.position && <p><span>Position: </span>{ pair.position }</p> }
+                                        { pair.openedAt && <p><span>Opened At: </span>{ pair.openedAt }</p> }
+                                        { pair.closedAt && <p><span>Closed At: </span>{ pair.closedAt }</p> }
+                                        { pair.pipDif && <p><span>Pip Dif: </span>{ pair.pipDif }</p> }
+                                        { pair.profitLoss && <p><span>Profit/Loss: </span>{ pair.profitLoss }</p> }
+                                        { pair.open ? <p><span>Open: </span>true</p> : <p><span>Open: </span>false</p> }
+                                        { pair.createdAt && <p><span>Created At: </span>{ pair.createdAt }</p> }
+                                    </Link>
+                            </div>
+                        ))}
+                        { data.me.pairs && data.me.pairs.map(pair => (
+                            !pair.open && !open &&
+                            <div key={pair.id} style={{padding: 20, margin: 10, background: 'lightblue', textAlign: 'start'}}>
+                                    <div>
+                                        { pair.pair && <p><span>Currency Pair: </span>{pair.pair}</p> }
+                                        { pair.lotSize && <p><span>Lot Size: </span>{pair.lotSize.toLocaleString() +'.00'}</p> }
+                                        { pair.position && <p><span>Position: </span>{ pair.position }</p> }
+                                        { pair.openedAt && <p><span>Opened At: </span>{ pair.openedAt }</p> }
+                                        { pair.closedAt && <p><span>Closed At: </span>{ pair.closedAt }</p> }
+                                        { pair.pipDif && <p><span>Pip Dif: </span>{ pair.pipDif }</p> }
+                                        { pair.profitLoss && <p><span>Profit/Loss: </span>{ pair.profitLoss }</p> }
+                                        { pair.open ? <p><span>Open: </span>true</p> : <p><span>Open: </span>false</p> }
+                                        { pair.createdAt && <p><span>Created At: </span>{ pair.createdAt }</p> }
+                                    </div>
                             </div>
                         ))}
                     </div>
@@ -79,6 +100,7 @@ const Account = props => (
             )
         }}
     </Query>
-)
+    )
+}
 
 export default Account
