@@ -8,7 +8,7 @@ import { ADDFUNDS } from '../../graphql/mutations/addFunds'
 const Account = props => {
     const [open, setOpen] = useState(true)
     return (
-    <Query query={meQuery}>
+        <Query query={meQuery}>
         {({ data, loading, error }) => {
             if(loading) return <p>loading</p>
             if(error) {
@@ -52,7 +52,7 @@ const Account = props => {
                     </div>
                     <br />
                     <div>
-                        {props.location.state && <h3>Recent Pair</h3>}
+                        {props.location.state && <h3>Latest Pair</h3>}
                         {props.location.state && <p>Pair: {props.location.state.data.openPosition.pair.pair}</p>}
                         {props.location.state && <p>Lot Size: {props.location.state.data.openPosition.pair.lotSize.toLocaleString() +'.00'}</p>}
                         {props.location.state && <p>Pip Dif: {props.location.state.data.openPosition.pair.openedAt}</p>}
@@ -70,8 +70,8 @@ const Account = props => {
                                         { pair.pair && <p><span>Currency Pair: </span>{pair.pair}</p> }
                                         { pair.lotSize && <p><span>Lot Size: </span>{pair.lotSize.toLocaleString() +'.00'}</p> }
                                         { pair.position && <p><span>Position: </span>{ pair.position }</p> }
-                                        { pair.openedAt && <p><span>Opened At: </span>{ pair.openedAt }</p> }
-                                        { pair.closedAt && <p><span>Closed At: </span>{ pair.closedAt }</p> }
+                                        { pair.openedAt && <p><span>Opened At: </span>{ pair.openedAt.toFixed(4) }</p> }
+                                        { pair.closedAt && <p><span>Closed At: </span>{ pair.closedAt.toFixed(4) }</p> }
                                         { pair.pipDif && <p><span>Pip Dif: </span>{ pair.pipDif }</p> }
                                         { pair.profitLoss && <p><span>Profit/Loss: </span>{ pair.profitLoss }</p> }
                                         { pair.open ? <p><span>Open: </span>true</p> : <p><span>Open: </span>false</p> }
@@ -86,8 +86,8 @@ const Account = props => {
                                         { pair.pair && <p><span>Currency Pair: </span>{pair.pair}</p> }
                                         { pair.lotSize && <p><span>Lot Size: </span>{pair.lotSize.toLocaleString() +'.00'}</p> }
                                         { pair.position && <p><span>Position: </span>{ pair.position }</p> }
-                                        { pair.openedAt && <p><span>Opened At: </span>{ pair.openedAt }</p> }
-                                        { pair.closedAt && <p><span>Closed At: </span>{ pair.closedAt }</p> }
+                                        { pair.openedAt && <p><span>Opened At: </span>{ pair.openedAt.toFixed(4) }</p> }
+                                        { pair.closedAt && <p><span>Closed At: </span>{ pair.closedAt.toFixed(4) }</p> }
                                         { pair.pipDif && <p><span>Pip Dif: </span>{ pair.pipDif }</p> }
                                         { pair.profitLoss && <p><span>Profit/Loss: </span>{ pair.profitLoss }</p> }
                                         { pair.open ? <p><span>Open: </span>true</p> : <p><span>Open: </span>false</p> }
@@ -99,7 +99,7 @@ const Account = props => {
                 </div>
             )
         }}
-    </Query>
+        </Query>
     )
 }
 

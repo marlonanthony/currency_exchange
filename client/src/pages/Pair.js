@@ -13,7 +13,7 @@ const Pair = (props) => {
               [fc, tc] = pair.split('/')
         return (
             <Query query={CURRENCY_PAIR_INFO} variables={{ fc, tc }}>
-                {({ data, loading, error }) => {
+                {({ data, loading, error, refetch }) => {
                     if(loading) return <h1>Loading...</h1>
                     if(error) return `Error ${error}`
                     const { bidPrice, lastRefreshed, askPrice } = data.currencyPairInfo,
@@ -21,70 +21,72 @@ const Pair = (props) => {
                           potentialProfitLossLong = pipDifLong * lotSize,
                           pipDifShort = (openedAt - askPrice).toFixed(4),
                           potentialProfitLossShort = pipDifShort * lotSize
-                    console.log(typeof askPrice)
                     
                     return  data && (
                         <div>
                             <h3>Pair Details</h3>
                             <div>
                                 <p>{ name } your available balance: { bankroll.toLocaleString() +'.00' }</p> 
-                                { position === 'long' && 
-                                    <Mutation 
-                                        mutation={CLOSEPOSITION} 
-                                        variables={{ id, closedAt: +bidPrice }}
-                                        refetchQueries={[{ query: meQuery }]}
-                                    >
-                                        {(closePosition, { data, loading, error }) => {
-                                            if(loading) return <p>Loading</p>
-                                            if(error) {
-                                                console.log(error)  
-                                                return <small>Error: { error.message }</small>
-                                            }
-                                            return ( closePosition && 
-                                                <>
-                                                    <button onClick={() => {
-                                                        alert('Are you sure you want to sell your long position?')
-                                                        closePosition()
-                                                    }}>Sell</button> 
-                                                    {data && data.closePosition.message && ( 
-                                                        <div className='open_position_modal'>
-                                                            <p>{data && data.closePosition.message}!</p>
-                                                        </div>
-                                                    )}
-                                                </>
-                                            )
-                                        }}
-                                    </Mutation> 
-                                }
-                                { position === 'short' && 
-                                    <Mutation
-                                        mutation={CLOSEPOSITION}
-                                        variables={{ id, closedAt: +askPrice }}
-                                        refetchQueries={[{ query: meQuery }]}
-                                    >
-                                        {(closePosition, { data, loading, error }) => {
-                                            if(loading) return <p>Loading</p>
-                                            if(error) {
-                                                console.log(error)  
-                                                return <small>Error: { error.message }</small>
-                                            }
-                                            return ( closePosition && 
-                                                <>
-                                                    <button onClick={() => {
-                                                        alert('Are you sure you want to close your short position?')
-                                                        closePosition()
-                                                    }}>buy</button>
-                                                    { data && data.closePosition.message && (
-                                                        <div className='open_position_modal'>
-                                                            <p>{data.closePosition.message}!</p>
-                                                        </div>
-                                                    )
-                                                    }
-                                                </>
-                                            )
-                                        }}
-                                    </Mutation>
-                                }
+                                <div>
+                                    <button onClick={() => refetch()}>Refresh</button>
+                                    { position === 'long' && 
+                                        <Mutation 
+                                            mutation={CLOSEPOSITION} 
+                                            variables={{ id, closedAt: +bidPrice }}
+                                            refetchQueries={[{ query: meQuery }]}
+                                        >
+                                            {(closePosition, { data, loading, error }) => {
+                                                if(loading) return <p>Loading</p>
+                                                if(error) {
+                                                    console.log(error)  
+                                                    return <small>Error: { error.message }</small>
+                                                }
+                                                return ( closePosition && 
+                                                    <>
+                                                        <button onClick={() => {
+                                                            alert('Are you sure you want to sell your long position?')
+                                                            closePosition()
+                                                        }}>Sell</button> 
+                                                        {data && data.closePosition.message && ( 
+                                                            <div className='open_position_modal'>
+                                                                <p>{data && data.closePosition.message}!</p>
+                                                            </div>
+                                                        )}
+                                                    </>
+                                                )
+                                            }}
+                                        </Mutation> 
+                                    }
+                                    { position === 'short' && 
+                                        <Mutation
+                                            mutation={CLOSEPOSITION}
+                                            variables={{ id, closedAt: +askPrice }}
+                                            refetchQueries={[{ query: meQuery }]}
+                                        >
+                                            {(closePosition, { data, loading, error }) => {
+                                                if(loading) return <p>Loading</p>
+                                                if(error) {
+                                                    console.log(error)  
+                                                    return <small>Error: { error.message }</small>
+                                                }
+                                                return ( closePosition && 
+                                                    <>
+                                                        <button onClick={() => {
+                                                            alert('Are you sure you want to close your short position?')
+                                                            closePosition()
+                                                        }}>buy</button>
+                                                        { data && data.closePosition.message && (
+                                                            <div className='open_position_modal'>
+                                                                <p>{data.closePosition.message}!</p>
+                                                            </div>
+                                                        )
+                                                        }
+                                                    </>
+                                                )
+                                            }}
+                                        </Mutation>
+                                    }
+                                </div>
                             </div>
                             <div>
                                 <p><span>Currency Pair: </span>{pair}</p>

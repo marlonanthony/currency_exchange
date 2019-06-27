@@ -103,7 +103,9 @@ const Landing = props => {
                                                             <p>Lot Size: {data.openPosition.pair.lotSize.toLocaleString() +'.00'}</p>
                                                             <p>Pip Dif: {data.openPosition.pair.openedAt}</p>
                                                             <p>Position: {data.openPosition.pair.position}</p>
-                                                            <Link to={{ pathname: '/account', state: { data } }}>{data && data.openPosition.message && 'Details'}</Link>
+                                                            <Link to={{ pathname: '/account', state: { data } }}>
+                                                                {data && data.openPosition.message && 'Details'}
+                                                            </Link>
                                                         </div>
                                                     )}
                                                 </>

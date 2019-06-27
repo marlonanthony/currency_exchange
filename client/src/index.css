@@ -6,7 +6,7 @@
 }
 a { 
   text-decoration: none; 
-  color: black;
+  color: rgb(0,0,0);
 }
 span { color: rgb(35, 100, 150); }
 button, select { cursor: pointer; }
@@ -20,7 +20,8 @@ p:hover { color: gray; }
 
 .open_position_modal {
   position: absolute;
-  background: rgb(0,0,0);
+  background: white;
+  border: 1px solid lightblue;
   color: var(--secondary-color);
   width: 350px;
   left: calc(50% - 175px);
