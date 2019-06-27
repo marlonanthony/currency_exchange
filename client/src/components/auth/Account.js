@@ -65,8 +65,7 @@ const Account = props => {
                     <button onClick={() => setOpen(true)}>open</button>
                     <button onClick={() => setOpen(false)}>closed</button>
                     <div style={{width: 400, margin: 'auto' }}>
-                        { data.me.pairs && data.me.pairs.map(pair => (
-                            pair.open && open &&
+                        { data.me.pairs && data.me.pairs.map(pair => ( pair.open && open &&
                             <div key={pair.id} style={{padding: 20, margin: 10, background: 'lightblue', textAlign: 'start'}}>
                                     <Link to={{ pathname: '/pair', state: { pair, me: data.me } }}>
                                         { pair.pair && <p><span>Currency Pair: </span>{pair.pair}</p> }
@@ -78,8 +77,7 @@ const Account = props => {
                                     </Link>
                             </div>
                         ))}
-                        { data.me.pairs && data.me.pairs.map(pair => (
-                            !pair.open && !open &&
+                        { data.me.pairs && data.me.pairs.map(pair => ( !pair.open && !open &&
                             <div key={pair.id} style={{padding: 20, margin: 10, background: 'lightblue', textAlign: 'start'}}>
                                     <div>
                                         { pair.pair && <p><span>Currency Pair: </span>{pair.pair}</p> }
