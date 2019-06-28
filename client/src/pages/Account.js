@@ -51,22 +51,22 @@ const Account = props => {
                         </Mutation>
                     </div>
                     <br />
-                    <div>
-                        {props.location.state && <h3>New Position</h3>}
-                        {props.location.state && <div style={{ padding: 20, background: 'lightblue', textAlign: 'start', width: 400, margin: '10px auto' }}>
-                            {props.location.state && <p><span>Pair: </span>{props.location.state.data.openPosition.pair.pair}</p>}
-                            {props.location.state && <p><span>Lot Size: </span>{props.location.state.data.openPosition.pair.lotSize.toLocaleString() +'.00'}</p>}
-                            {props.location.state && <p><span>Pip Dif: </span>{props.location.state.data.openPosition.pair.openedAt}</p>}
-                            {props.location.state && <p><span>Position: </span>{props.location.state.data.openPosition.pair.position}</p>}
-                        </div>}
-                    </div>
+                    { props.location.state && <div>
+                        <h3>New Position</h3>
+                        <div className='pair_divs' style={{ width: 400, margin: '10px auto' }}>
+                            <p><span>Pair: </span>{props.location.state.data.openPosition.pair.pair}</p>
+                            <p><span>Lot Size: </span>{props.location.state.data.openPosition.pair.lotSize.toLocaleString() +'.00'}</p>
+                            <p><span>Pip Dif: </span>{props.location.state.data.openPosition.pair.openedAt}</p>
+                            <p><span>Position: </span>{props.location.state.data.openPosition.pair.position}</p>
+                        </div>
+                    </div>}
                     <br />
                     <h3>Currency Pairs</h3>
                     <button onClick={() => setOpen(true)}>open</button>
                     <button onClick={() => setOpen(false)}>closed</button>
                     <div style={{width: 400, margin: 'auto' }}>
                         { data.me.pairs && data.me.pairs.map(pair => ( pair.open && open &&
-                            <div key={pair.id} style={{padding: 20, margin: 10, background: 'lightblue', textAlign: 'start'}}>
+                            <div className='pair_divs' key={pair.id} style={{ margin: 10 }}>
                                     <Link to={{ pathname: '/pair', state: { pair, me: data.me } }}>
                                         { pair.pair && <p><span>Currency Pair: </span>{pair.pair}</p> }
                                         { pair.lotSize && <p><span>Lot Size: </span>{pair.lotSize.toLocaleString() +'.00'}</p> }
@@ -78,7 +78,7 @@ const Account = props => {
                             </div>
                         ))}
                         { data.me.pairs && data.me.pairs.map(pair => ( !pair.open && !open &&
-                            <div key={pair.id} style={{padding: 20, margin: 10, background: 'lightblue', textAlign: 'start'}}>
+                            <div className='pair_divs' key={pair.id} style={{ margin: 10 }}>
                                     <div>
                                         { pair.pair && <p><span>Currency Pair: </span>{pair.pair}</p> }
                                         { pair.lotSize && <p><span>Lot Size: </span>{pair.lotSize.toLocaleString() +'.00'}</p> }

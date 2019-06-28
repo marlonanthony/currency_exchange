@@ -17,7 +17,7 @@ function App() {
         <Route path='/login' component={Login} />
         <Route path='/' render={() => (
           <>
-            <div style={{marginBottom: 100}}>
+            <div style={{marginBottom: '3.5rem'}}>
               <Header />
             </div>
             <Route path='/register' component={Register} />

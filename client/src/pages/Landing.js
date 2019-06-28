@@ -69,12 +69,12 @@ const Landing = props => {
                                                     {data && data.openPosition.message && showModal && ( 
                                                         <div className='open_position_modal'>
                                                             <button onClick={() => setShowModal(false)}>x</button>
-                                                            <p>{data && data.openPosition.message}!</p>
+                                                            <p>{data.openPosition.message}!</p>
                                                             <p>Currency Pair: {data.openPosition.pair.pair}</p>
                                                             <p>Lot Size: {data.openPosition.pair.lotSize.toLocaleString() +'.00'}</p>
                                                             <p>Opened At: {data.openPosition.pair.openedAt}</p>
                                                             <p>Position: {data.openPosition.pair.position}</p>
-                                                            <Link to={{ pathname: '/account', state: { data } }}>{data && data.openPosition.message && <span>Details</span>}</Link>
+                                                            <Link to={{ pathname: '/account', state: { data } }}>{<span>Details</span>}</Link>
                                                         </div>
                                                     )}
                                                 </>

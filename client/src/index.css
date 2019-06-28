@@ -10,13 +10,9 @@ a {
 }
 span { color: rgb(35, 100, 150); }
 button, select { cursor: pointer; }
+p { color: white }
 p:hover { color: gray; }
-
-.chart {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+h1,h2, h3, h4 { color: white; }
 
 .open_position_modal {
   position: absolute;
@@ -30,6 +26,18 @@ p:hover { color: gray; }
   animation-name: modal;
   animation-duration: .5s;
   animation-iteration-count: 1;
+}
+.open_position_modal p {
+  color: black;
+}
+
+.pair_divs {
+  padding: 20; 
+  border: 1px solid white; 
+  text-align: start,
+}
+.pair_divs:hover {
+  border: 1px solid rgb(55,131,194);
 }
 
 @keyframes modal {
@@ -50,6 +58,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: black;
 }
 
 code {
