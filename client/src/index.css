@@ -24,7 +24,7 @@ h1,h2, h3, h4 { color: white; }
   top: 25%;
   padding: 20px;
   animation-name: modal;
-  animation-duration: .5s;
+  animation-duration: .2s;
   animation-iteration-count: 1;
 }
 .open_position_modal p {
@@ -52,7 +52,24 @@ h1,h2, h3, h4 { color: white; }
   margin: 10px;
 }
 
+.login input,
+.register input {
+  padding: 10px; 
+  margin: 10px 0px; 
+  width: 80%;
+  max-width: 500px;
+}
+
 @keyframes modal {
+  0% {
+    opacity: 0; 
+  }
+  50% { opacity: .2;}
+  100% {
+    opacity: 1;
+  }
+}
+/* @keyframes modal {
   0% {
     transform: translateY(-100vh);
   }
@@ -60,7 +77,7 @@ h1,h2, h3, h4 { color: white; }
   100% {
     transform: translateY(0);
   }
-}
+} */
 
 
 body {
