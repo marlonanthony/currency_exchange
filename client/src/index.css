@@ -34,7 +34,11 @@ h1,h2, h3, h4 { color: white; }
 .pair_divs {
   padding: 20; 
   border: 1px solid rgba(255,255,255,0.1); 
-  border-radius: 3px;
+  border-radius: 5px;
+}
+.pair_divs p {
+  text-align: start;
+  padding-left: 20px;
 }
 .pair_divs:hover {
   border: 1px solid rgba(55,131,194, 0.3);
@@ -42,6 +46,10 @@ h1,h2, h3, h4 { color: white; }
 
 .chartData {
   padding-top: 50px;
+}
+.chartData form input,
+.chartData form button {
+  margin: 10px;
 }
 
 @keyframes modal {

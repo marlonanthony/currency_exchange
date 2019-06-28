@@ -23,7 +23,7 @@ const Pair = (props) => {
                           potentialProfitLossShort = pipDifShort * lotSize
                     
                     return  data && (
-                        <div>
+                        <div style={{ paddingTop: 50 }}>
                             <h3>Pair Details</h3>
                             <div>
                                 <p>{ name } your available balance: { bankroll.toLocaleString() +'.00' }</p> 
@@ -93,7 +93,7 @@ const Pair = (props) => {
                                 <p><span>Lot Size: </span>{lotSize.toLocaleString()+'.00'}</p>
                                 <p><span>Opened At: </span>{openedAt}</p>
                                 <p><span>Position: </span>{position}</p>
-                                <p><span>Created At: </span>{createdAt}</p>
+                                <p><span>Created At: </span>{new Date(+createdAt).toLocaleString()}</p>
                                 { position === 'long' ? (
                                     <>
                                         <br />

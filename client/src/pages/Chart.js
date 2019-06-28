@@ -20,7 +20,6 @@ const Chart = () => {
                 const chartData = data.monthlyTimeSeries.valuesArray
                 return (
                     <div className='chartData'>
-                        <h3>Chart</h3>
                         <form onSubmit={e => {
                             e.preventDefault()
                             setFc(fromCurrency)

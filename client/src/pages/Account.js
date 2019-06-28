@@ -73,7 +73,7 @@ const Account = props => {
                                         { pair.position && <p><span>Position: </span>{ pair.position }</p> }
                                         { pair.openedAt && <p><span>Opened At: </span>{ pair.openedAt.toFixed(4) }</p> }
                                         { pair.open ? <p><span>Open: </span>true</p> : <p><span>Open: </span>false</p> }
-                                        { pair.createdAt && <p><span>Created At: </span>{ pair.createdAt }</p> }
+                                        { pair.createdAt && <p><span>Created At: </span>{ new Date(+pair.createdAt).toLocaleString() }</p> }
                                     </Link>
                             </div>
                         ))}
@@ -88,7 +88,7 @@ const Account = props => {
                                         { pair.pipDif && <p><span>Pip Dif: </span>{ pair.pipDif }</p> }
                                         { pair.profitLoss && <p><span>Profit/Loss: </span>{ pair.profitLoss.toFixed(2) }</p> }
                                         { pair.open ? <p><span>Open: </span>true</p> : <p><span>Open: </span>false</p> }
-                                        { pair.createdAt && <p><span>Created At: </span>{ pair.createdAt }</p> }
+                                        { pair.createdAt && <p><span>Created At: </span>{ new Date(+pair.createdAt).toLocaleString() }</p> }
                                     </div>
                             </div>
                         ))}
