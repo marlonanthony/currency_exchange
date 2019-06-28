@@ -19,7 +19,7 @@ const Account = props => {
             if(!data.me) return <div><Link to='/login'>Please Login</Link></div>
                 
             return (
-                <div>
+                <div style={{ paddingTop: 50 }}>
                     <h2>{data.me.name}</h2>
                     <div>
                         <p>Available Balance: { data.me.bankroll.toLocaleString() +'.00' }</p> 

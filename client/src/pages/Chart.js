@@ -11,7 +11,7 @@ const Chart = () => {
           [toCurrency, setToCurrency] = useState('USD')
 
     return (
-        <Query query={MONTHLYTIMESERIES} variables={{ fc: fromCurrency, tc: toCurrency }}>
+        <Query query={MONTHLYTIMESERIES} variables={{ fc, tc }}>
         {({ data, loading, error }) => {
             if(loading) return <h1>Loading...</h1>
             if(error) return `Error ${error}`
@@ -23,20 +23,20 @@ const Chart = () => {
                         <h3>Chart</h3>
                         <form onSubmit={e => {
                             e.preventDefault()
-                            setFromCurrency(fc)
-                            setToCurrency(tc) 
+                            setFc(fromCurrency)
+                            setTc(toCurrency) 
                         }}>
                             <input 
-                                name='fc'
-                                value={fc}
+                                name='fromCurrency'
+                                value={fromCurrency}
                                 placeholder='From Currency'
-                                onChange={e => setFc(e.target.value)}
+                                onChange={e => setFromCurrency(e.target.value)}
                             />
                             <input 
-                                name='tc'
-                                value={tc}
+                                name='toCurrency'
+                                value={toCurrency}
                                 placeholder='To Currency'
-                                onChange={e => setTc(e.target.value)}
+                                onChange={e => setToCurrency(e.target.value)}
                             />
                             <button>submit</button>
                         </form>
@@ -44,7 +44,7 @@ const Chart = () => {
                             labels,
                             datasets: [
                                 {
-                                    label: `${fromCurrency}/${toCurrency} Time Series FX (Monthly)`,
+                                    label: `${fc}/${tc} Time Series FX (Monthly)`,
                                     fill: true,
                                     lineTension: 0.1,
                                     backgroundColor: 'rgb(55, 131, 194)',
