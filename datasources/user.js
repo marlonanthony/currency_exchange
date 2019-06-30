@@ -1,6 +1,7 @@
 const { DataSource } = require('apollo-datasource')
 const isEmail = require('isemail')
 const bcrypt = require('bcryptjs')
+const { UserInputError } = require('apollo-server-express')
 
 const User = require('../models/User') 
 const Pair = require('../models/Pair') 
@@ -34,9 +35,9 @@ class UserAPI extends DataSource {
     try {
       if (!isEmail.validate(email)) { throw new Error('Invalide Email') }
       const user = await User.findOne({ email }) 
-      if(!user) { throw new Error('Email or password is incorrect!') }
+      if(!user) { throw new UserInputError('Email or password is incorrect!') }
       const isEqual = await bcrypt.compare(password, user.password)
-      if(!isEqual) { throw new Error('Email or password is incorrect!') }
+      if(!isEqual) { throw new UserInputError('Email or password is incorrect!') }
       req.session.userId = user.id 
       return user 
     } catch (error) { throw error }

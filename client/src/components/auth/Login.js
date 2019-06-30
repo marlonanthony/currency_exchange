@@ -17,7 +17,7 @@ export default function Login(props) {
                     data: { me: data.login }
                 })
             }}>
-            {(login, { client }) => ( 
+            {(login, { client, error }) => ( 
                 <div className='login' style={{textAlign: 'center', marginTop: 50 }}>
                     <form onSubmit={ async (e) => {
                             e.preventDefault()
@@ -42,6 +42,7 @@ export default function Login(props) {
                             onChange={(e) => setPassword(e.target.value) }
                             placeholder='Enter your password'
                         />
+                        { error ? <div style={{color: 'white', marginBottom: 5}}>{error.message.split(':')[1].trim()}</div> : null }
                         <button type='submit'>Login</button>
                     </form>
                 </div>
