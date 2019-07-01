@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Mutation, Query } from 'react-apollo'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 import { CLOSEPOSITION } from '../graphql/mutations/closePosition'
 import { CURRENCY_PAIR_INFO } from '../graphql/queries/currencyPairInfo'
@@ -9,6 +9,7 @@ import Spinner from '../components/spinner/Spinner'
 
 const Pair = (props) => {
     const [showModal, setShowModal] = useState(false)
+    if(!props.location.state) return <Redirect to='/login' />
     if(props.location.state) {
         const {createdAt, lotSize, openedAt, pair, position, id } = props.location.state.pair,
               { bankroll, name } = props.location.state.me,

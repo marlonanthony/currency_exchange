@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Query, Mutation } from 'react-apollo'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 import { meQuery } from '../graphql/queries/me'
 import { ADDFUNDS } from '../graphql/mutations/addFunds'
@@ -17,7 +17,7 @@ const Account = props => {
                 return `${error}`
             }
             if(!data) return <div>Data is undefined</div>
-            if(!data.me) return <div><Link to='/login'>Please Login</Link></div>
+            if(!data.me) return <Redirect to='/login' />
             let count = 0
             data.me.pairs.forEach(pair => {
                 if(!pair.open && pair.profitLoss) {
