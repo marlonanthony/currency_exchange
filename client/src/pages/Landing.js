@@ -6,7 +6,7 @@ import { CURRENCY_PAIR_INFO } from '../graphql/queries/currencyPairInfo'
 import { OPENPOSITION } from '../graphql/mutations/openPosition'
 import { meQuery } from '../graphql/queries/me'
 
-const Landing = props => {
+const Landing = () => {
     const [currency, setCurrency] = useState('EUR'),
           [toCurrency, setToCurrency] = useState('USD'),
           [askPrice, setAskPrice] = useState(0),
@@ -121,7 +121,7 @@ const Landing = props => {
                             </div>
                             {
                                 data && data.currencyPairInfo && Object.keys(data.currencyPairInfo).map((val, i) => (
-                                    <div key={i}>
+                                    <div key={i} className='data'>
                                         <p><span>{val && `${val}: `}</span>{`${data.currencyPairInfo[val]}`}</p>
                                     </div>
                                 ))

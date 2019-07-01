@@ -10,9 +10,15 @@ a {
 }
 span { color: rgb(35, 100, 150); }
 button, select { cursor: pointer; }
-p { color: white }
+p { color: white; font-size: 15px; }
 p:hover { color: gray; }
 h1,h2, h3, h4 { color: white; }
+
+.data {
+  border-bottom: 1px solid var(--secondary-color);
+  width: 400px;
+  margin-left: calc(50% - 200px);
+}
 
 .open_position_modal {
   position: absolute;
