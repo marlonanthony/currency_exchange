@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { Line } from 'react-chartjs-2'
 import { Query } from 'react-apollo'
+import { Redirect } from 'react-router-dom'
 
 import { MONTHLYTIMESERIES } from '../graphql/queries/monthlyTimeSeries'
+import Spinner from '../components/spinner/Spinner'
 
 const Chart = () => {
     const [fc, setFc] = useState('EUR'),
@@ -13,7 +15,7 @@ const Chart = () => {
     return (
         <Query query={MONTHLYTIMESERIES} variables={{ fc, tc }}>
         {({ data, loading, error }) => {
-            if(loading) return <h1>Loading...</h1>
+            if(loading) return <Spinner />
             if(error) return `Error ${error}`
             if(data) {
                 const labels = data.monthlyTimeSeries.timesArray

@@ -74,7 +74,7 @@ const Landing = props => {
                                                             <p>Lot Size: {data.openPosition.pair.lotSize.toLocaleString() +'.00'}</p>
                                                             <p>Opened At: {data.openPosition.pair.openedAt}</p>
                                                             <p>Position: {data.openPosition.pair.position}</p>
-                                                            <Link to={{ pathname: '/account', state: { data } }}>{<span>Details</span>}</Link>
+                                                            <Link to={{ pathname: '/account', state: { data } }}><span>Details</span></Link>
                                                         </div>
                                                     )}
                                                 </>
@@ -109,7 +109,7 @@ const Landing = props => {
                                                             <p>Opened At: {data.openPosition.pair.openedAt}</p>
                                                             <p>Position: {data.openPosition.pair.position}</p>
                                                             <Link to={{ pathname: '/account', state: { data } }}>
-                                                                {data && data.openPosition.message && <span>Details</span>}
+                                                                <span>Details</span>
                                                             </Link>
                                                         </div>
                                                     )}
@@ -120,12 +120,10 @@ const Landing = props => {
                                 )}
                             </div>
                             {
-                                data && data.currencyPairInfo && Object.keys(data.currencyPairInfo).map((val, i) =>(
-                                    <main key={i}>
-                                        <div>
-                                            <p><span>{val && `${val}: `}</span>{`${data.currencyPairInfo[val]}`}</p>
-                                        </div>
-                                    </main>
+                                data && data.currencyPairInfo && Object.keys(data.currencyPairInfo).map((val, i) => (
+                                    <div key={i}>
+                                        <p><span>{val && `${val}: `}</span>{`${data.currencyPairInfo[val]}`}</p>
+                                    </div>
                                 ))
                             }
                         </main>

@@ -84,7 +84,7 @@ const Pair = (props) => {
                                                             <div className='open_position_modal'>
                                                                 <button onClick={() => setShowModal(false)}>X</button>
                                                                 <p>{data.closePosition.message}!</p>
-                                                                <Link to={{ pathname: '/account' }}><span>Account</span></Link>
+                                                                <Link to='/account'><span>Account</span></Link>
                                                             </div>
                                                         )
                                                         }
