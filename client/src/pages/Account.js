@@ -4,32 +4,39 @@ import { Link } from 'react-router-dom'
 
 import { meQuery } from '../graphql/queries/me'
 import { ADDFUNDS } from '../graphql/mutations/addFunds'
+import Spinner from '../components/spinner/Spinner'
 
 const Account = props => {
     const [open, setOpen] = useState(true)
     return (
         <Query query={meQuery}>
         {({ data, loading, error }) => {
-            if(loading) return <p>loading</p>
+            if(loading) return <Spinner />
             if(error) {
                 console.log(error) 
                 return `${error}`
             }
             if(!data) return <div>Data is undefined</div>
             if(!data.me) return <div><Link to='/login'>Please Login</Link></div>
-                
+            let count = 0
+            data.me.pairs.forEach(pair => {
+                if(!pair.open && pair.profitLoss) {
+                    count += pair.profitLoss
+                } 
+            })
             return (
                 <div style={{ paddingTop: 50 }}>
                     <h2>{data.me.name}</h2>
                     <div>
-                        <p>Available Balance: { data.me.bankroll.toLocaleString() +'.00' }</p> 
+                        <p><span>Available Balance: </span>{ data.me.bankroll.toLocaleString() +'.00' }</p> 
+                        <p><span>Total P/L: </span>{count}</p>
                         <Mutation 
                             mutation={ADDFUNDS} 
                             variables={{amount: 1000000}}
                             refetchQueries={[{query: meQuery}]}
                         >
                             {(addFunds, { data, loading, error }) => {
-                                if(loading) return <p>Loading</p>
+                                if(loading) return <Spinner />
                                 if(error) {
                                     console.log(error)  
                                     return <small>Error: { error.message }</small>

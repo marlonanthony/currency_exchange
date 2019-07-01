@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { CLOSEPOSITION } from '../graphql/mutations/closePosition'
 import { CURRENCY_PAIR_INFO } from '../graphql/queries/currencyPairInfo'
 import { meQuery } from '../graphql/queries/me'
+import Spinner from '../components/spinner/Spinner'
 
 const Pair = (props) => {
     const [showModal, setShowModal] = useState(false)
@@ -15,7 +16,7 @@ const Pair = (props) => {
         return (
             <Query query={CURRENCY_PAIR_INFO} variables={{ fc, tc }}>
                 {({ data, loading, error, refetch }) => {
-                    if(loading) return <h1>Loading...</h1>
+                    if(loading) return <Spinner />
                     if(error) return `Error ${error}`
                     const { bidPrice, lastRefreshed, askPrice } = data.currencyPairInfo,
                           pipDifLong = (bidPrice - openedAt).toFixed(4),
@@ -37,7 +38,7 @@ const Pair = (props) => {
                                             refetchQueries={[{ query: meQuery }]}
                                         >
                                             {(closePosition, { data, loading, error }) => {
-                                                if(loading) return <p>Loading</p>
+                                                if(loading) return <Spinner />
                                                 if(error) {
                                                     console.log(error)  
                                                     return <small>Error: { error.message }</small>
@@ -46,8 +47,8 @@ const Pair = (props) => {
                                                     <>
                                                         <button onClick={() => {
                                                             alert('Are you sure you want to sell your long position?')
-                                                            setShowModal(true) 
                                                             closePosition()
+                                                            setShowModal(true) 
                                                         }}>Sell</button> 
                                                         {data && data.closePosition.message && showModal && ( 
                                                             <div className='open_position_modal'>
@@ -68,7 +69,7 @@ const Pair = (props) => {
                                             refetchQueries={[{ query: meQuery }]}
                                         >
                                             {(closePosition, { data, loading, error }) => {
-                                                if(loading) return <p>Loading</p>
+                                                if(loading) return <Spinner />
                                                 if(error) {
                                                     console.log(error)  
                                                     return <small>Error: { error.message }</small>
@@ -77,8 +78,8 @@ const Pair = (props) => {
                                                     <>
                                                         <button onClick={() => {
                                                             alert('Are you sure you want to close your short position?')
-                                                            setShowModal(true) 
                                                             closePosition()
+                                                            setShowModal(true) 
                                                         }}>buy</button>
                                                         { data && data.closePosition.message && showModal && (
                                                             <div className='open_position_modal'>

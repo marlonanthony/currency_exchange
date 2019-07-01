@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { CURRENCY_PAIR_INFO } from '../graphql/queries/currencyPairInfo'
 import { OPENPOSITION } from '../graphql/mutations/openPosition'
 import { meQuery } from '../graphql/queries/me'
+import Spinner from '../components/spinner/Spinner'
 
 const Landing = () => {
     const [currency, setCurrency] = useState('EUR'),
@@ -17,7 +18,7 @@ const Landing = () => {
     return (
         <Query query={CURRENCY_PAIR_INFO} variables={{ fc: currency, tc: toCurrency }}>
             {({ data, loading, error, refetch, client }) => {
-                if(loading) return <h1>Loading...</h1>
+                if(loading) return <Spinner />
                 if(error) return `Error ${error}`
                 if(data) {
                     const user = client.readQuery({ query: meQuery })
@@ -54,7 +55,7 @@ const Landing = () => {
                                         refetchQueries={[{ query: meQuery }]}
                                     >
                                         {(openPosition, { data, loading, error }) => {
-                                            if(loading) return <p>Loading</p>
+                                            if(loading) return <Spinner />
                                             if(error) {
                                                 console.log(error)  
                                                 return <small>Error: { error.message }</small>
@@ -88,7 +89,7 @@ const Landing = () => {
                                         variables={{ pair: `${currency}/${toCurrency}`, lotSize: 100000, openedAt: bidPrice, position: 'short' }}
                                         refetchQueries={[{ query: meQuery }]}>
                                         {(openPosition, { data, loading, error }) => {
-                                            if(loading) return <p>Loading</p>
+                                            if(loading) return <Spinner />
                                             if(error) {
                                                 console.log(error)  
                                                 return <small>Error: { error.message }</small>

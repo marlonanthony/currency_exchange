@@ -30,7 +30,7 @@ h1,h2, h3, h4 { color: white; }
   top: 25%;
   padding: 20px;
   animation-name: modal;
-  animation-duration: .2s;
+  animation-duration: .5s;
   animation-iteration-count: 1;
 }
 .open_position_modal p {
@@ -67,19 +67,9 @@ h1,h2, h3, h4 { color: white; }
 }
 
 @keyframes modal {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
-/* @keyframes modal {
-  0% {
-    transform: translateY(-100vh);
-  }
-  50% { transform: translateY(20vh);}
-  100% {
-    transform: translateY(0);
-  }
-} */
-
 
 body {
   margin: 0;
