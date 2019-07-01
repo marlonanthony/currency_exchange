@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Mutation, Query } from 'react-apollo'
+import { Link } from 'react-router-dom'
 
 import { CLOSEPOSITION } from '../graphql/mutations/closePosition'
 import { CURRENCY_PAIR_INFO } from '../graphql/queries/currencyPairInfo'
 import { meQuery } from '../graphql/queries/me'
 
 const Pair = (props) => {
-    console.log(props) 
+    const [showModal, setShowModal] = useState(false)
     if(props.location.state) {
         const {createdAt, lotSize, openedAt, pair, position, id } = props.location.state.pair,
               { bankroll, name } = props.location.state.me,
@@ -45,11 +46,14 @@ const Pair = (props) => {
                                                     <>
                                                         <button onClick={() => {
                                                             alert('Are you sure you want to sell your long position?')
+                                                            setShowModal(true) 
                                                             closePosition()
                                                         }}>Sell</button> 
-                                                        {data && data.closePosition.message && ( 
+                                                        {data && data.closePosition.message && showModal && ( 
                                                             <div className='open_position_modal'>
+                                                                <button onClick={() => setShowModal(false)}>X</button>
                                                                 <p>{data && data.closePosition.message}!</p>
+                                                                <Link to='/account'><span>Account</span></Link>
                                                             </div>
                                                         )}
                                                     </>
@@ -73,11 +77,14 @@ const Pair = (props) => {
                                                     <>
                                                         <button onClick={() => {
                                                             alert('Are you sure you want to close your short position?')
+                                                            setShowModal(true) 
                                                             closePosition()
                                                         }}>buy</button>
-                                                        { data && data.closePosition.message && (
+                                                        { data && data.closePosition.message && showModal && (
                                                             <div className='open_position_modal'>
+                                                                <button onClick={() => setShowModal(false)}>X</button>
                                                                 <p>{data.closePosition.message}!</p>
+                                                                <Link to={{ pathname: '/account' }}><span>Account</span></Link>
                                                             </div>
                                                         )
                                                         }
