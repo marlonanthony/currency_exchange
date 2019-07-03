@@ -41,7 +41,7 @@ export default function Login(props) {
                             onChange={(e) => setPassword(e.target.value) }
                             placeholder='Enter your password'
                         />
-                        { error ? <div style={{color: 'white', marginBottom: 5}}>{error.message.split(':')[1].trim()}</div> : null }
+                        { error ? <div style={{color: 'var(--text-color)', marginBottom: 5}}>{error.message.split(':')[1].trim()}</div> : null }
                         <button type='submit'>Login</button>
                     </form>
                 </main>

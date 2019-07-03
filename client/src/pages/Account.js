@@ -60,7 +60,7 @@ const Account = props => {
                     <br />
                     { props.location.state && <div>
                         <h3>New Position</h3>
-                        <div className='pair_divs' style={{ width: 400, margin: '10px auto' }}>
+                        <div className='pair_divs'>
                             <p><span>Pair: </span>{props.location.state.data.openPosition.pair.pair}</p>
                             <p><span>Lot Size: </span>{props.location.state.data.openPosition.pair.lotSize.toLocaleString() +'.00'}</p>
                             <p><span>Pip Dif: </span>{props.location.state.data.openPosition.pair.openedAt}</p>
@@ -71,9 +71,9 @@ const Account = props => {
                     <h3>Currency Pairs</h3>
                     <button onClick={() => setOpen(true)}>open</button>
                     <button onClick={() => setOpen(false)}>closed</button>
-                    <div style={{width: 400, margin: 'auto' }}>
+                    <div>
                         { data.me.pairs && data.me.pairs.map(pair => ( pair.open && open &&
-                            <div className='pair_divs' key={pair.id} style={{ margin: 10 }}>
+                            <div className='pair_divs' key={pair.id}>
                                     <Link to={{ pathname: '/pair', state: { pair, me: data.me } }}>
                                         { pair.pair && <p><span>Currency Pair: </span>{pair.pair}</p> }
                                         { pair.lotSize && <p><span>Lot Size: </span>{pair.lotSize.toLocaleString() +'.00'}</p> }
@@ -85,7 +85,7 @@ const Account = props => {
                             </div>
                         ))}
                         { data.me.pairs && data.me.pairs.map(pair => ( !pair.open && !open &&
-                            <div className='pair_divs' key={pair.id} style={{ margin: 10 }}>
+                            <div className='pair_divs' key={pair.id}>
                                     <div>
                                         { pair.pair && <p><span>Currency Pair: </span>{pair.pair}</p> }
                                         { pair.lotSize && <p><span>Lot Size: </span>{pair.lotSize.toLocaleString() +'.00'}</p> }

@@ -8,11 +8,10 @@ import Account from './pages/Account'
 import Landing from './pages/Landing'
 import Chart from './pages/Chart'
 import Pair from './pages/Pair'
-import './App.css'
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Switch>
         <Route path='/login' component={Login} />
         <Route path='/' render={() => (

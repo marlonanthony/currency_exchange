@@ -1,19 +1,32 @@
+/* Global */
+
 * {
   --main-color: rgb(15,15,23);
   --secondary-color: rgb(55,131,194);
   --text-color: rgb(200,200,200);
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: black;
+  text-align: center;
   box-sizing: border-box;
 }
-a { 
-  text-decoration: none; 
-  color: rgb(0,0,0);
-}
+
+a { text-decoration: none;  color: rgb(0,0,0); }
 main { padding-top: 50px; }
 span { color: rgb(35, 100, 150); }
+p { color: rgba(200,200,200, 0.6); font-size: 14px; }
+p:hover { color: rgba(200,200,200, 0.5); }
+h1,h2, h3, h4 { color: var(--text-color); }
 button, select { cursor: pointer; }
-p { color: white; font-size: 15px; }
-p:hover { color: gray; }
-h1,h2, h3, h4 { color: white; }
+
+/* /Landing && /Pair */
 
 .data {
   border-bottom: 1px solid var(--secondary-color);
@@ -23,7 +36,7 @@ h1,h2, h3, h4 { color: white; }
 
 .open_position_modal {
   position: absolute;
-  background: white;
+  background: rgb(225,225,225);
   border: 1px solid lightblue;
   color: black;
   width: 350px;
@@ -38,10 +51,20 @@ h1,h2, h3, h4 { color: white; }
   color: black;
 }
 
+@keyframes modal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+/* /Account  */
+
 .pair_divs {
   padding: 20; 
   border: 1px solid rgba(255,255,255,0.1); 
   border-radius: 5px;
+  width: 400px; 
+  margin: 10px auto;
 }
 .pair_divs p {
   text-align: start;
@@ -51,6 +74,9 @@ h1,h2, h3, h4 { color: white; }
   border: 1px solid rgba(55,131,194, 0.3);
 }
 
+
+/* /Chart  */
+
 .chartData {
   padding-top: 50px;
 }
@@ -58,6 +84,9 @@ h1,h2, h3, h4 { color: white; }
 .chartData form button {
   margin: 10px;
 }
+
+
+/* /Login && /Register */
 
 .login input,
 .register input {
@@ -73,24 +102,4 @@ h1,h2, h3, h4 { color: white; }
   justify-content: center; 
   flex-direction: column; 
   align-items: center;
-}
-
-@keyframes modal {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: black;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
 }
