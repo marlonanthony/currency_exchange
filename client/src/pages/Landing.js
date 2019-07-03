@@ -29,21 +29,19 @@ const Landing = () => {
                             { user.me && user.me.bankroll && <p>Available Balance {user.me.bankroll.toLocaleString() +'.00'}</p> }
                             <div>
                                 <select 
-                                    value={currency}
-                                    onChange={e => setCurrency(e.target.value)}>
-                                    <option>EUR</option>
-                                    <option>USD</option>
-                                    <option>GBP</option>
-                                    <option>NZD</option>
-                                    <option>AUD</option>
-                                </select>
-                                <select 
-                                    value={toCurrency}
-                                    onChange={e => setToCurrency(e.target.value)}>
-                                    <option>JPY</option>
-                                    <option>CHF</option>
-                                    <option>CAD</option>
-                                    <option>USD</option>
+                                    value={`${currency}/${toCurrency}`} 
+                                    onChange={e => {
+                                        const [fc, tc] = e.target.value.split('/')
+                                        setCurrency(fc)
+                                        setToCurrency(tc)
+                                    }}>
+                                    <option>EUR/USD</option>
+                                    <option>USD/JPY</option>
+                                    <option>GBP/USD</option>
+                                    <option>AUD/USD</option>
+                                    <option>USD/CHF</option>
+                                    <option>NZD/USD</option>
+                                    <option>USD/CAD</option>
                                 </select>
                                 <button onClick={() => refetch()}>Refresh</button>
                                 { setAskPrice(+data.currencyPairInfo.askPrice) }
