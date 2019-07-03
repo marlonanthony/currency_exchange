@@ -26,7 +26,7 @@ const Pair = (props) => {
                           potentialProfitLossShort = pipDifShort * lotSize
                     
                     return  data && (
-                        <div style={{ paddingTop: 50 }}>
+                        <main>
                             <h3>Pair Details</h3>
                             <div>
                                 <p>{ name } your available balance: { bankroll.toLocaleString() +'.00' }</p> 
@@ -121,7 +121,7 @@ const Pair = (props) => {
                                     </>
                                 ) }
                             </div>
-                        </div>
+                        </main>
                     )
                 }}
             </Query>           

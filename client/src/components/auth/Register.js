@@ -10,12 +10,12 @@ export default function Register(props) {
     return (
         <Mutation mutation={REGISTERMUTATION}>
             {register => ( 
-                <div className='register' style={{textAlign: 'center' }}>
+                <div className='register'>
                     <form onSubmit={ async (e) => {
                         e.preventDefault()
                         await register({variables: { email, password, name }})
                         props.history.push('/login')
-                    }} style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+                    }}>
                         <h1>Sign Up</h1>
                         <input
                             required

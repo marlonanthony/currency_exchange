@@ -25,7 +25,7 @@ const Account = props => {
                 } 
             })
             return (
-                <div style={{ paddingTop: 50 }}>
+                <main>
                     <h2>{data.me.name}</h2>
                     <div>
                         <p><span>Available Balance: </span>{ data.me.bankroll.toLocaleString() +'.00' }</p> 
@@ -100,7 +100,7 @@ const Account = props => {
                             </div>
                         ))}
                     </div>
-                </div>
+                </main>
             )
         }}
         </Query>

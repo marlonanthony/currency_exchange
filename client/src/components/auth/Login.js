@@ -18,14 +18,13 @@ export default function Login(props) {
                 })
             }}>
             {(login, { client, error }) => ( 
-                <div className='login' style={{textAlign: 'center', marginTop: 50 }}>
+                <main className='login'>
                     <form onSubmit={ async (e) => {
                             e.preventDefault()
                             client.resetStore() 
                             await login({variables: { email, password }})
                             props.history.push('/')
-                        }} 
-                        style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+                        }}>
                         <h1>Login</h1>
                         <input
                             required
@@ -45,7 +44,7 @@ export default function Login(props) {
                         { error ? <div style={{color: 'white', marginBottom: 5}}>{error.message.split(':')[1].trim()}</div> : null }
                         <button type='submit'>Login</button>
                     </form>
-                </div>
+                </main>
             )}
         </Mutation>
     )

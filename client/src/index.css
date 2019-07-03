@@ -8,6 +8,7 @@ a {
   text-decoration: none; 
   color: rgb(0,0,0);
 }
+main { padding-top: 50px; }
 span { color: rgb(35, 100, 150); }
 button, select { cursor: pointer; }
 p { color: white; font-size: 15px; }
@@ -64,6 +65,14 @@ h1,h2, h3, h4 { color: white; }
   margin: 10px 0px; 
   width: 80%;
   max-width: 500px;
+}
+
+.login form,
+.register form {
+  display: flex; 
+  justify-content: center; 
+  flex-direction: column; 
+  align-items: center;
 }
 
 @keyframes modal {

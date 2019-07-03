@@ -24,7 +24,7 @@ const Landing = () => {
                     const user = client.readQuery({ query: meQuery })
                     if(user && user.me) me = user.me
                     return (
-                        <main style={{ paddingTop: 50 }}>
+                        <main>
                             <h3>Currency Exchange</h3>
                             { user.me && user.me.bankroll && <p>Available Balance {user.me.bankroll.toLocaleString() +'.00'}</p> }
                             <div>
@@ -49,7 +49,12 @@ const Landing = () => {
                                 { me && (
                                     <Mutation
                                         mutation={OPENPOSITION}
-                                        variables={{ pair: `${currency}/${toCurrency}`, lotSize: 100000, openedAt: askPrice, position: 'long' }}
+                                        variables={{ 
+                                            pair: `${currency}/${toCurrency}`, 
+                                            lotSize: 100000, 
+                                            openedAt: askPrice, 
+                                            position: 'long' 
+                                        }}
                                         refetchQueries={[{ query: meQuery }]}
                                     >
                                         {(openPosition, { data, loading, error }) => {
@@ -84,7 +89,12 @@ const Landing = () => {
                                 { me && (
                                     <Mutation
                                         mutation={OPENPOSITION}
-                                        variables={{ pair: `${currency}/${toCurrency}`, lotSize: 100000, openedAt: bidPrice, position: 'short' }}
+                                        variables={{ 
+                                            pair: `${currency}/${toCurrency}`, 
+                                            lotSize: 100000, 
+                                            openedAt: bidPrice, 
+                                            position: 'short' 
+                                        }}
                                         refetchQueries={[{ query: meQuery }]}>
                                         {(openPosition, { data, loading, error }) => {
                                             if(loading) return <Spinner />
