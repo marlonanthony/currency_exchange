@@ -31,8 +31,10 @@ button, select { cursor: pointer; }
 
 .data {
   border-bottom: 1px solid var(--secondary-color);
-  width: 400px;
-  margin-left: calc(50% - 200px);
+  width: 350px;
+  margin-left: calc(50% - 175px);
+  text-align: start;
+  text-transform: capitalize;
 }
 
 .open_position_modal {
@@ -62,7 +64,7 @@ button, select { cursor: pointer; }
 
 .pair_divs {
   padding: 20; 
-  border: 1px solid rgba(255,255,255,0.5); 
+  border: 1px solid rgba(255,255,255,0.1); 
   border-radius: 5px;
   width: 400px; 
   margin: 10px auto;

@@ -18,9 +18,9 @@ const LogoutButton = props => (
         mutation={LOGOUT_MUTATION}
         update={cache => updateCacheAfterLogout(cache, props)}>
         {logout => (
-            <button onClick={logout}>
+            <div onClick={logout}>
                 Logout
-            </button>
+            </div>
         )}
     </Mutation>
 )

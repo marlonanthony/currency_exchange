@@ -29,7 +29,7 @@ function Header(props) {
                         <ul>
                             <li><NavLink to='/account'>Account</NavLink></li>
                             <li><NavLink to='/chart'>Chart</NavLink></li>
-                            <LogoutButton />
+                            <li><LogoutButton /></li>
                         </ul>
                     )
                 }}

@@ -22,16 +22,13 @@
     list-style: none;
 }
 
-.navigation button {
-    margin-right: 1.5rem;
-}
-
 .navigation li {
     margin: 0 1rem;
     color: var(--header-text-color);
 }
 .navigation li:hover {
     cursor: pointer;
+    color: black;
 }
 
 .navigation a {
