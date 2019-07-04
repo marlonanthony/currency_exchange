@@ -3,7 +3,8 @@
 * {
   --main-color: rgb(15,15,23);
   --secondary-color: rgb(55,131,194);
-  --text-color: rgb(200,200,200);
+  --text-color: rgba(200,200,200, 0.6);
+  --header-text-color: rgb(200,200,200);
 }
 
 body {
@@ -20,13 +21,13 @@ body {
 
 a { text-decoration: none;  color: rgb(0,0,0); }
 main { padding-top: 50px; }
-span { color: rgb(35, 100, 150); }
-p { color: rgba(200,200,200, 0.6); font-size: 14px; }
-p:hover { color: rgba(200,200,200, 0.5); }
-h1,h2, h3, h4 { color: var(--text-color); }
+span { color: var(--secondary-color); }
+p { color: var(--text-color); font-size: 14px; }
+p:hover { color: rgba(200,200,200, 0.4); }
+h1,h2, h3, h4 { color: var(--header-text-color); }
 button, select { cursor: pointer; }
 
-/* /Landing && /Pair */
+/* Landing && Pair */
 
 .data {
   border-bottom: 1px solid var(--secondary-color);
@@ -57,11 +58,11 @@ button, select { cursor: pointer; }
 }
 
 
-/* /Account  */
+/* Account  */
 
 .pair_divs {
   padding: 20; 
-  border: 1px solid rgba(255,255,255,0.1); 
+  border: 1px solid rgba(255,255,255,0.5); 
   border-radius: 5px;
   width: 400px; 
   margin: 10px auto;
@@ -75,18 +76,19 @@ button, select { cursor: pointer; }
 }
 
 
-/* /Chart  */
+/* Chart  */
 
-.chartData {
+.chartData { 
   padding-top: 50px;
 }
+
 .chartData form input,
 .chartData form button {
   margin: 10px;
 }
 
 
-/* /Login && /Register */
+/* Login && Register */
 
 .login input,
 .register input {

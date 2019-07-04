@@ -11,7 +11,7 @@
 }
 .navigation header a {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--header-text-color);
     margin-left: 10px;
 }
 .navigation ul {
@@ -28,7 +28,7 @@
 
 .navigation li {
     margin: 0 1rem;
-    color: var(--text-color);
+    color: var(--header-text-color);
 }
 .navigation li:hover {
     cursor: pointer;
@@ -36,7 +36,7 @@
 
 .navigation a {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--header-text-color);
 }
 .navigation a:hover,
 .navigation a:active,

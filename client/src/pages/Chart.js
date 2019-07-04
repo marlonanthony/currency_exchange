@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Line } from 'react-chartjs-2'
 import { Query } from 'react-apollo'
-import { Redirect } from 'react-router-dom'
 
 import { MONTHLYTIMESERIES } from '../graphql/queries/monthlyTimeSeries'
 import Spinner from '../components/spinner/Spinner'
