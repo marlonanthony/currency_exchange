@@ -35,6 +35,7 @@ button, select { cursor: pointer; }
   margin-left: calc(50% - 175px);
   text-align: start;
   text-transform: capitalize;
+  padding: 5px 5px 5px 0;
 }
 
 .open_position_modal {
