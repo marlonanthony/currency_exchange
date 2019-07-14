@@ -18,7 +18,7 @@ const server = new ApolloServer({
     }),
     context: ({ req }) => ({ req }),
     engine: {
-        apiKey: process.env.ENGINE_API_KEY
+        apiKey: process.env.ENGINE_API_KEY 
     },
 })
 

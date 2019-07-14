@@ -41,9 +41,9 @@ class CurrencyAPI extends RESTDataSource {
         try {
             const data = await this.get(`https://www.alphavantage.co/query?function=FX_MONTHLY&from_symbol=${fc}&to_symbol=${tc}&apikey=${keys.alphaVantageAPIKey}`),
                   timeSeries = data && data['Time Series FX (Monthly)'],
-                  timesArray = timeSeries && Object.keys(timeSeries).reverse(),
-                  valuesArray = timeSeries && Object.values(timeSeries).map(val => val['4. close']).reverse()
-            return data && timeSeries && timesArray && valuesArray && { timesArray, valuesArray }
+                  timesArray = Object.keys(timeSeries).reverse(),
+                  valuesArray = Object.values(timeSeries).map(val => val['4. close']).reverse()
+            return { timesArray, valuesArray }
 
         } catch (error) { throw error }
     }
