@@ -4,18 +4,14 @@ import { Link, Redirect } from 'react-router-dom'
 
 import { meQuery } from '../graphql/queries/me'
 import { ADDFUNDS } from '../graphql/mutations/addFunds'
-import Spinner from '../components/spinner/Spinner'
 
 const Account = props => {
     const [open, setOpen] = useState(true)
     return (
         <Query query={meQuery}>
         {({ data, loading, error }) => {
-            if(loading) return <Spinner />
-            if(error) {
-                console.log(error) 
-                return `${error}`
-            }
+            if(loading) return <p>Loading...</p>
+            if(error) return <p>{error.message}</p>
             if(!data) return <div>Data is undefined</div>
             if(!data.me) return <Redirect to='/login' />
             let count = 0
@@ -33,10 +29,10 @@ const Account = props => {
                         <Mutation 
                             mutation={ADDFUNDS} 
                             variables={{amount: 1000000}}
-                            refetchQueries={[{query: meQuery}]}
+                            refetchQueries={[{ query: meQuery }]}
                         >
                             {(addFunds, { data, loading, error }) => {
-                                if(loading) return <Spinner />
+                                if(loading) return <p>Loading...</p>
                                 if(error) {
                                     console.log(error)  
                                     return <small>Error: { error.message }</small>

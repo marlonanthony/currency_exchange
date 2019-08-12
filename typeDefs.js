@@ -55,7 +55,6 @@ module.exports.typeDefs = gql`
         valuesArray: [String]!
     }
 
-
     type Query {
         me: User
         currencyPairInfo(fc: String, tc: String): DefaultPairDisplay!
@@ -66,10 +65,10 @@ module.exports.typeDefs = gql`
 
     type Mutation {
         register(email: String!, password: String!, name: String!): Boolean!
-        login(email: String!, password: String!): User
+        login(email: String!, password: String!): User!
+        logout: Boolean!
         openPosition(pair: String!, lotSize: Int, openedAt: Float!, position: String!): PairUpdateResponse!
         closePosition(id: ID!, closedAt: Float!): PairUpdateResponse!
-        logout: Boolean
         addFunds(amount: Int!): AddFundsResponse!
     }
 `

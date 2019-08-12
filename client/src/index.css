@@ -47,9 +47,7 @@ button, select { cursor: pointer; }
   left: calc(50% - 175px);
   top: 25%;
   padding: 20px;
-  animation-name: modal;
-  animation-duration: .5s;
-  animation-iteration-count: 1;
+  animation: modal .5s;
 }
 .open_position_modal p {
   color: black;

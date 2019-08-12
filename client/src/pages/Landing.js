@@ -69,7 +69,9 @@ const Landing = () => {
                                                         alert('Are you sure you want to buy?')
                                                         setShowModal(true) 
                                                         openPosition()
-                                                    }}>Buy</button> 
+                                                    }}>
+                                                        Buy
+                                                    </button> 
                                                     {data && data.openPosition.message && showModal && ( 
                                                         <div className='open_position_modal'>
                                                             <button onClick={() => setShowModal(false)}>x</button>
@@ -108,7 +110,9 @@ const Landing = () => {
                                                         alert('Are you sure you want to sell short?')
                                                         setShowModal(true) 
                                                         openPosition()
-                                                    }}>Sell</button> 
+                                                    }}>
+                                                        Sell
+                                                    </button> 
                                                     {data && data.openPosition.message && showModal && ( 
                                                         <div className='open_position_modal'>
                                                             <button onClick={() => setShowModal(false)}>x</button>

@@ -11,7 +11,7 @@ export default function Register(props) {
         <Mutation mutation={REGISTERMUTATION}>
             {register => ( 
                 <div className='register'>
-                    <form onSubmit={ async (e) => {
+                    <form onSubmit={ async e => {
                         e.preventDefault()
                         await register({variables: { email, password, name }})
                         props.history.push('/login')
@@ -22,7 +22,7 @@ export default function Register(props) {
                             name='email'
                             type='email'
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={e => setEmail(e.target.value)}
                             placeholder='Enter your email'
                             
                         />
@@ -30,7 +30,7 @@ export default function Register(props) {
                             required
                             type='password'
                             value={password}
-                            onChange={(e) => setPassword(e.target.value) }
+                            onChange={e => setPassword(e.target.value) }
                             placeholder='Enter your password'
                             
                         />
@@ -38,7 +38,7 @@ export default function Register(props) {
                             required
                             type='text'
                             value={name}
-                            onChange={(e) => setName(e.target.value) }
+                            onChange={e => setName(e.target.value) }
                             placeholder='Enter your name'
                             
                         />
